@@ -16,7 +16,7 @@ public:
 	bool insertKey(T& key);
 	bool deleteKey(T& key);
 	template < class Callable >
-	void inorderTraversal(Callable callback);
+	void inorderRecursiveTraversal(Callable callback);
 
 private:
 	struct node_t
@@ -28,15 +28,17 @@ private:
 		T key_;
 		int count_;
 	};
+	template < class Callable >
+	static void inorderRecursiveTraversal(node_t* p, Callable callback);
 	//  Малое левое вращение
-	static void doRRrotation(node_t* root);
+	static void doRRrotation(node_t* p);
 	// Малое правое вращение
-	static void doLLrotation(node_t* root);
+	static void doLLrotation(node_t* p);
 	// Большое правое вращение
-	static void doLRrotation(node_t* root);
+	static void doLRrotation(node_t* p);
 	// Большое левое вращение
-	static void doRLrotation(node_t* root);
-	static void print(node_t* root);
+	static void doRLrotation(node_t* p);
+	static void print(node_t* p);
 	node_t* root_;
 
 };
@@ -79,9 +81,19 @@ bool AVL_tree< T, Compare >::deleteKey(T& key)
 
 template < class T, class Compare >
 template < class Callable >
-void AVL_tree< T, Compare >::inorderTraversal(Callable callback)
+void AVL_tree< T, Compare >::inorderRecursiveTraversal(Callable callback)
 {
+	AVL_tree< T, Compare >::inorderRecursiveTraversal(this->root_, callback);
+}
 
+template < class T, class Compare >
+template < class Callable >
+static void AVL_tree< T, Compare >::inorderRecursiveTraversal(node_t* p, Callable callback)
+{
+	assert(p != nullptr);
+	AVL_tree< T, Compare >::inorderRecursiveTraversal(node->left_, callback);
+	callback(p);
+	AVL_tree< T, Compare >::inorderRecursiveTraversal(node->right_, callback);
 }
 
 template < class T, class Compare >
