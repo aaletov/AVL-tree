@@ -95,11 +95,11 @@ static AVL_tree< T, Compare >::node_t* AVL_tree< T, Compare >::recursiveSearchNo
 	}
 	if (Compare(key, p->key_))
 	{
-		return AVL_tree< T, compare >recursiveSearch(p->left_, key);
+		return AVL_tree< T, Compare >::recursiveSearch(p->left_, key);
 	}
 	else
 	{
-		return this->recursiveSearch(p->right_, key);
+		return AVL_tree< T, Compare >::recursiveSearch(p->right_, key);
 	}
 }
 
