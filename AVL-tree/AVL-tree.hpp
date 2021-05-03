@@ -26,10 +26,10 @@ private:
 		// Высота правого - высота левого
 		int bal_;
 		T key_;
-		int count_;
 	};
 	template < class Callable >
 	static void inorderRecursiveTraversal(node_t* p, Callable callback);
+	static node_t* recursiveSearchNode(node_t* p, T& key);
 	//  Малое левое вращение
 	static void doRRrotation(node_t* p);
 	// Малое правое вращение
@@ -64,7 +64,7 @@ std::ostream& operator<<(std::ostream& os, const AVL_tree< T, Compare >& tree)
 template < class T, class Compare >
 bool AVL_tree< T, Compare >::searchKey(T& key) const
 {
-
+	
 }
 
 template < class T, class Compare >
@@ -84,6 +84,23 @@ template < class Callable >
 void AVL_tree< T, Compare >::inorderRecursiveTraversal(Callable callback)
 {
 	AVL_tree< T, Compare >::inorderRecursiveTraversal(this->root_, callback);
+}
+
+template < class T, class Compare >
+static AVL_tree< T, Compare >::node_t* AVL_tree< T, Compare >::recursiveSearchNode(AVL_tree< T, Compare >::node_t* p, T& key)
+{
+	if (p == nullptr || key == p->key_)
+	{
+		return p;
+	}
+	if (Compare(key, p->key_))
+	{
+		return AVL_tree< T, compare >recursiveSearch(p->left_, key);
+	}
+	else
+	{
+		return this->recursiveSearch(p->right_, key);
+	}
 }
 
 template < class T, class Compare >
