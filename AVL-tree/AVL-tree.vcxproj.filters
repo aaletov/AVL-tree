@@ -23,5 +23,11 @@
     <ClInclude Include="AVL-tree.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="node-operations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="node.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
