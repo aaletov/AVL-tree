@@ -3,45 +3,53 @@
 
 #include <cmath>
 #include <cassert>
+#include <iomanip>
+#include <iostream>
 #include "node.hpp"
 #include "functions.hpp"
 
-template < class Key, class T, class Callable >
-void inorderRecursiveTraversal(node_t< Key, T >* p, Callable callback);
-template < class Key, class T, class Compare >
-node_t< Key, T >* recursiveSearchNode(node_t< Key, T >* p, Key key, Compare comparator);
-template < class Key, class T, class Compare >
-node_t< Key, T >* iterativeSearchNode(node_t< Key, T >* p, Key key, Compare comparator);
-template < class Key, class T, class Compare >
-node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare comparator);
-template < class Key, class T, class Compare >
-bool insertPair(node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
-template < class Key, class T, class Compare >
-bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
-template < class Key, class T, class Compare >
-void deleteNode(node_t< Key, T >* p, node_t< Key, T >* toDelete, Compare comparator);
-template < class Key, class T >
-void balance(node_t< Key, T >* p);
-template < class Key, class T >
-int getHeight(node_t< Key, T >* p);
-// Малое левое вращение
-template < class Key, class T >
-void doRRrotation(node_t< Key, T >* p);
-// Малое правое вращение
-template < class Key, class T >
-void doLLrotation(node_t< Key, T >* p);
-// Большое правое вращение
-template < class Key, class T >
-void doLRrotation(node_t< Key, T >* p);
-// Большое левое вращение
-template < class Key, class T >
-void doRLrotation(node_t< Key, T >* p);
-template < class Key, class T >
-void print(node_t< Key, T >* p);
+namespace node
+{
+	template < class Key, class T, class Callable >
+	void inorderRecursiveTraversal(node_t< Key, T >* p, Callable callback);
+	template < class Key, class T, class Compare >
+	node_t< Key, T >* recursiveSearchNode(node_t< Key, T >* p, Key key, Compare comparator);
+	template < class Key, class T, class Compare >
+	node_t< Key, T >* iterativeSearchNode(node_t< Key, T >* p, Key key, Compare comparator);
+	template < class Key, class T, class Compare >
+	node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare comparator);
+	template < class Key, class T, class Compare >
+	bool insertPair(node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
+	template < class Key, class T, class Compare >
+	bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
+	template < class Key, class T, class Compare >
+	void deleteNode(node_t< Key, T >* p, node_t< Key, T >* toDelete, Compare comparator);
+	template < class Key, class T >
+	void balance(node_t< Key, T >* p);
+	template < class Key, class T >
+	int getHeight(node_t< Key, T >* p);
+	// Малое левое вращение
+	template < class Key, class T >
+	void doRRrotation(node_t< Key, T >* p);
+	// Малое правое вращение
+	template < class Key, class T >
+	void doLLrotation(node_t< Key, T >* p);
+	// Большое правое вращение
+	template < class Key, class T >
+	void doLRrotation(node_t< Key, T >* p);
+	// Большое левое вращение
+	template < class Key, class T >
+	void doRLrotation(node_t< Key, T >* p);
+	template < class Key, class T >
+	void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE);
+	template < class Key, class T >
+	void printNode(std::ostream& out, node_t< Key, T >* p, int cellSize);
+	template < class Key, class T >
+	Key getKey(node_t< Key, T >* p);
+}
 
-
 template < class Key, class T, class Callable >
-void inorderRecursiveTraversal(node_t< Key, T >* p, Callable callback)
+void node::inorderRecursiveTraversal(node::node_t< Key, T >* p, Callable callback)
 {
 	assert(p != nullptr);
 	inorderRecursiveTraversal(p->left_, callback);
@@ -50,7 +58,7 @@ void inorderRecursiveTraversal(node_t< Key, T >* p, Callable callback)
 }
 
 template < class Key, class T, class Compare >
-node_t< Key, T >* recursiveSearchNode(node_t< Key, T >* p, Key key, Compare comparator)
+node::node_t< Key, T >* node::recursiveSearchNode(node::node_t< Key, T >* p, Key key, Compare comparator)
 {
 	if (p == nullptr || key == getKey(p))
 	{
@@ -67,7 +75,7 @@ node_t< Key, T >* recursiveSearchNode(node_t< Key, T >* p, Key key, Compare comp
 }
 
 template < class Key, class T, class Compare >
-node_t< Key, T >* iterativeSearchNode(node_t< Key, T >* p, Key key, Compare comparator)
+node::node_t< Key, T >* node::iterativeSearchNode(node::node_t< Key, T >* p, Key key, Compare comparator)
 {
 	while (p != nullptr && key != getKey(p))
 	{
@@ -84,7 +92,7 @@ node_t< Key, T >* iterativeSearchNode(node_t< Key, T >* p, Key key, Compare comp
 }
 
 template < class Key, class T, class Compare >
-node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare comparator)
+node::node_t< Key, T >* node::iterativeSearchParent(node::node_t< Key, T >* p, Key key, Compare comparator)
 {
 	if (getKey(p) == key)
 	{
@@ -117,7 +125,7 @@ node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare co
 }
 
 template < class Key, class T, class Compare >
-bool insertPair(node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
+bool node::insertPair(node::node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
 {
 	bool res;
 	// Проход по пути поиска, пока не убедимся, что ключа в дереве нет
@@ -141,11 +149,11 @@ bool insertPair(node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparato
 		// Вставка
 		if (comparator(std::get< 0 >(pair), getKey(p)))
 		{
-			p->left_ = new node_t< Key, T >{ nullptr, nullptr, pair };
+			p->left_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
 		}
 		else
 		{
-			p->right_ = new node_t< Key, T >{ nullptr, nullptr, pair };
+			p->right_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
 		}
 		res = true;
 	}
@@ -155,7 +163,7 @@ bool insertPair(node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparato
 }
 
 template < class Key, class T, class Compare >
-bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator)
+bool node::deleteKey(node::node_t< Key, T >* p, Key key, Compare comparator)
 {
 	bool res;
 	// Проход по пути поиска
@@ -191,15 +199,15 @@ bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator)
 }
 
 template < class Key, class T, class Compare >
-void deleteNode(node_t< Key, T >* root, node_t< Key, T >* node, Compare comparator)
+void node::deleteNode(node::node_t< Key, T >* root, node::node_t< Key, T >* node, Compare comparator)
 {
 	assert(root != nullptr && node != nullptr);
-	node_t< Key, T >* p = iterativeSearchParent(root, getKey(node), comparator);
-	node_t< Key, T >* left = node->left_;
-	node_t< Key, T >* right = node->right_;
+	node::node_t< Key, T >* p = iterativeSearchParent(root, getKey(node), comparator);
+	node::node_t< Key, T >* left = node->left_;
+	node::node_t< Key, T >* right = node->right_;
 	if (node == root)
 	{
-		node_t< Key, T >* minRight = right;
+		node::node_t< Key, T >* minRight = right;
 		while (minRight->left_ != nullptr)
 		{
 			minRight = minRight->left_;
@@ -211,7 +219,7 @@ void deleteNode(node_t< Key, T >* root, node_t< Key, T >* node, Compare comparat
 		}
 		minRight = nullptr;
 		deleteKey(root, std::get< 0 >(minRightPair), comparator);
-		root = new node_t< Key, T >{ left, right, minRightPair };
+		root = new node::node_t< Key, T >{ left, right, minRightPair };
 		if (left != nullptr)
 		{
 			left->p_ = root;
@@ -264,7 +272,7 @@ void deleteNode(node_t< Key, T >* root, node_t< Key, T >* node, Compare comparat
 	}
 	else
 	{
-		node_t< Key, T >* minRight = right;
+		node::node_t< Key, T >* minRight = right;
 		while (minRight->left_ != nullptr)
 		{
 			minRight = minRight->left_;
@@ -278,12 +286,12 @@ void deleteNode(node_t< Key, T >* root, node_t< Key, T >* node, Compare comparat
 		deleteKey(root, std::get< 0 >(minRightPair), comparator);
 		if (p->left_ == node)
 		{
-			p->left_ = new node_t< Key, T >{ left, right, minRightPair };
+			p->left_ = new node::node_t< Key, T >{ left, right, minRightPair };
 			left->p_ = p->left_;
 		}
 		else
 		{
-			p->right_ = new node_t< Key, T >{ left, right, minRightPair };
+			p->right_ = new node::node_t< Key, T >{ left, right, minRightPair };
 			left->p_ = p->right_;
 		}
 		delete node;
@@ -291,14 +299,14 @@ void deleteNode(node_t< Key, T >* root, node_t< Key, T >* node, Compare comparat
 }
 
 template < class Key, class T >
-void balance(node_t< Key, T >* p)
+void node::balance(node::node_t< Key, T >* p)
 {
 	assert(p != nullptr);
 	if (p->left_ == nullptr || p->right_ == nullptr)
 	{
 		return;
 	}
-	node_t< Key, T >* b;
+	node::node_t< Key, T >* b;
 	// case 3, 4
 	b = p->left_;
 	if (getHeight(b) - getHeight(p->right_) == 2)
@@ -329,7 +337,7 @@ void balance(node_t< Key, T >* p)
 }
 
 template < class Key, class T >
-int getHeight(node_t< Key, T >* p)
+int node::getHeight(node::node_t< Key, T >* p)
 {
 	if (p->left_ == nullptr || p->right_ == nullptr)
 	{
@@ -342,35 +350,35 @@ int getHeight(node_t< Key, T >* p)
 
 // Малое левое вращение
 template < class Key, class T >
-void doRRrotation(node_t< Key, T >* p)
+void node::doRRrotation(node::node_t< Key, T >* p)
 {
 	assert(p != nullptr);
 	assert(p->right_ != nullptr);
-	node_t< Key, T >* p1 = p->right_;
+	node::node_t< Key, T >* p1 = p->right_;
 	p->right_ = p1->left_;
 	p1->left_ = p;
 }
 
 // Малое правое вращение
 template < class Key, class T >
-void doLLrotation(node_t< Key, T >* p)
+void node::doLLrotation(node::node_t< Key, T >* p)
 {
 	assert(p != nullptr);
 	assert(p->left_ != nullptr);
-	node_t< Key, T >* p1 = p->left_;
+	node::node_t< Key, T >* p1 = p->left_;
 	p->left_ = p1->right_;
 	p1->right_ = p;
 }
 
 // Большое правое вращение
 template < class Key, class T >
-void doLRrotation(node_t< Key, T >* p)
+void node::doLRrotation(node::node_t< Key, T >* p)
 {
 	assert(p != nullptr);
 	assert(p->left_ != nullptr);
 	assert(p->left_->right_ != nullptr);
-	node_t< Key, T >* p1 = p->left_;
-	node_t< Key, T >* p2 = p1->right_;
+	node::node_t< Key, T >* p1 = p->left_;
+	node::node_t< Key, T >* p2 = p1->right_;
 	p1->right_ = p2->left_;
 	p2->left_ = p1;
 	p->left_ = p2->right_;
@@ -379,13 +387,13 @@ void doLRrotation(node_t< Key, T >* p)
 
 // Большое левое вращение
 template < class Key, class T >
-void doRLrotation(node_t< Key, T >* p)
+void node::doRLrotation(node::node_t< Key, T >* p)
 {
 	assert(p != nullptr);
 	assert(p->right_ != nullptr);
 	assert(p->right_->left_ != nullptr);
-	node_t< Key, T >* p1 = p->right_;
-	node_t< Key, T >* p2 = p1->left_;
+	node::node_t< Key, T >* p1 = p->right_;
+	node::node_t< Key, T >* p2 = p1->left_;
 	p1->left_ = p2->right_;
 	p2->right_ = p1;
 	p->right_ = p2->left_;
@@ -393,14 +401,14 @@ void doRLrotation(node_t< Key, T >* p)
 }
 
 template < class Key, class T >
-void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
+void node::print(node::node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 {
 	if (p == nullptr)
 	{
 		out << "Tree is empty" << '\n';
 		return;
 	}
-	node_t< Key, T >* node = p;
+	node::node_t< Key, T >* node = p;
 	if (CELL_SIZE <= 0)
 	{
 		CELL_SIZE = trunc(log10(INT_MAX)) + 1 + 1 + 2;
@@ -412,7 +420,7 @@ void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 	//int level = 0;
 	int currCellsCount = 1;
 	int currDequeSize;
-	std::deque< node_t< Key, T >* > deque;
+	std::deque< node::node_t< Key, T >* > deque;
 
 	deque.push_back(node);
 	while (containsValues(deque))
@@ -454,7 +462,13 @@ void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 }
 
 template < class Key, class T >
-Key getKey(node_t< Key, T >* p)
+void node::printNode(std::ostream& out, node::node_t< Key, T >* p, int cellSize)
+{
+	out << std::setw(cellSize) << std::internal << '(' << std::get< 0 >(p->pair_) << ')';
+}
+
+template < class Key, class T >
+Key node::getKey(node::node_t< Key, T >* p)
 {
 	return std::get<0>(p->pair_);
 }

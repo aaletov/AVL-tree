@@ -3,13 +3,16 @@
 
 #include <algorithm>
 
-template < class Key, class T >
-struct node_t
+namespace node
 {
-	node_t* left_;
-	node_t* right_;
-	// Высота правого - высота левого
-	std::pair< Key, T > pair_;
-};
+	template < class Key, class T >
+	struct node_t
+	{
+		node_t* left_;
+		node_t* right_;
+		// Высота правого - высота левого
+		std::pair< Key, T > pair_;
+	};
+}
 
 #endif

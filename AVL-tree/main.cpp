@@ -1,11 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <functional>
-#include "node-operations.hpp"
+#include "AVL-tree.hpp"
 
 int main()
 {
-    auto* dict = new node_t< std::string, int >;
+    auto comparator = [](std::string lword, std::string rword)
+    {
+        return lword.length() < rword.length();
+    };
+    AVL_tree< std::string, int, std::function< bool(std::string, std::string) > > dict(comparator);
     std::vector< std::pair< std::string, int > > vals
     {
         {"biba", 5},
@@ -19,13 +23,10 @@ int main()
         {"kaliivan", 93},
         {"aboba", 24}
     };
-    auto comparator = [](std::string lword, std::string rword)
-    {
-        return lword.length() < rword.length();
-    };
+
     for (auto& pair : vals)
     {
-        insertPair(dict, pair, comparator);
+        dict.insertPair(pair);
     }
-    print(dict, std::cout, 10);
+    std::cout << dict << '\n';
 }
