@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AVL-tree.hpp" />
+    <ClInclude Include="functions.hpp" />
     <ClInclude Include="node-operations.hpp" />
     <ClInclude Include="node.hpp" />
   </ItemGroup>
