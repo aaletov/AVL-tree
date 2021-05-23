@@ -19,9 +19,13 @@ int main()
         {"kaliivan", 93},
         {"aboba", 24}
     };
+    auto comparator = [](std::string lword, std::string rword)
+    {
+        return lword.length() < rword.length();
+    };
     for (auto& pair : vals)
     {
-        insertPair<  >(dict, pair);
+        insertPair(dict, pair, comparator);
     }
     print(dict, std::cout, 10);
 }
