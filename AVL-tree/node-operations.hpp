@@ -5,6 +5,7 @@
 #include <cassert>
 #include <iomanip>
 #include <iostream>
+#include <climits>
 #include "node.hpp"
 #include "functions.hpp"
 
@@ -19,7 +20,7 @@ namespace node
 	template < class Key, class T, class Compare >
 	node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
-	bool insertPair(node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
+	bool insertPair(node_t< Key, T > root, node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
 	template < class Key, class T, class Compare >
 	bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
@@ -125,38 +126,41 @@ node::node_t< Key, T >* node::iterativeSearchParent(node::node_t< Key, T >* p, K
 }
 
 template < class Key, class T, class Compare >
-bool node::insertPair(node::node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
+bool node::insertPair(node::node_t< Key, T > root, node::node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
 {
 	bool res;
 	// Проход по пути поиска, пока не убедимся, что ключа в дереве нет
-	if (p != nullptr)
+	if (std::get< 0 >(pair) == getKey(p->right_) || std::get< 0 > == getKey(p->left_))
 	{
-		if (std::get< 0 >(pair) == getKey(p))
-		{
-			res = false;
-		}
-		else if (comparator(std::get< 0 >(pair), getKey(p)))
+		return false;
+	}
+	else if (comparator(std::get< 0 >(pair), getKey(p)))
+	{
+		if (p->left_ != nullptr)
 		{
 			res = insertPair(p->left_, pair, comparator);
-		}
-		else
-		{
-			res = insertPair(p->right_, pair, comparator);
+			res = true;
 		}
 	}
 	else
 	{
-		// Вставка
-		if (comparator(std::get< 0 >(pair), getKey(p)))
+		if (p->right_ != nullptr)
 		{
-			p->left_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
+			res = insertPair(p->right_, pair, comparator);
+			res = true;
 		}
-		else
-		{
-			p->right_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
-		}
-		res = true;
 	}
+	// Вставка
+	if (res == true)
+	if (comparator(std::get< 0 >(pair), getKey(p)))
+	{
+		p->left_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
+	}
+	else
+	{
+		p->right_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
+	}
+	res = true;
 	// Возврат
 	balance(p);
 	return res;
@@ -229,7 +233,7 @@ void node::deleteNode(node::node_t< Key, T >* root, node::node_t< Key, T >* node
 			right->p_ = root;
 		}
 		delete node;
-		return true;
+		return;
 	}
 	if (left == nullptr && right == nullptr)
 	{

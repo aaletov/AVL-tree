@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+#include <string>
 #include "AVL-tree.hpp"
 
 int main()
@@ -24,9 +25,9 @@ int main()
         {"aboba", 24}
     };
 
-    for (auto& pair : vals)
+    for (auto& pair: vals)
     {
         dict.insertPair(pair);
     }
-    std::cout << dict << '\n';
+    print(dict.getRoot(), std::cout, 7);
 }
