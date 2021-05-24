@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree", "AVL-tree\AVL-tree.vcxproj", "{0964C57D-1A5A-46AB-9305-7B2821F8BC19}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree-test", "AVL-tree-test\AVL-tree-test.vcxproj", "{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x64.Build.0 = Release|x64
 		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x86.ActiveCfg = Release|Win32
 		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x86.Build.0 = Release|Win32
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x64.ActiveCfg = Debug|x64
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x64.Build.0 = Debug|x64
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x86.ActiveCfg = Debug|Win32
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x86.Build.0 = Debug|Win32
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x64.ActiveCfg = Release|x64
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x64.Build.0 = Release|x64
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x86.ActiveCfg = Release|Win32
+		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
