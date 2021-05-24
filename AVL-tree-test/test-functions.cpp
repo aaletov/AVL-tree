@@ -13,6 +13,7 @@ std::function< int() > getGenerator()
 	if (!wasInvoked)
 	{
 		srand(time(0));
+		wasInvoked = true;
 	}
 	return generator;
 }
@@ -59,12 +60,33 @@ struct test_node_t
 
 bool testSort(IntTree intTree, IntCompare comparator)
 {
-	test_node_t testNode(comparator);
+	bool res = true;
+	auto testNode = [res, comparator](node::node_t< int, int >* p) mutable
+	{
+		if (p == nullptr)
+		{
+			throw - 1;
+		}
+		if (p->left_ != nullptr)
+		{
+			res &= comparator(getKey(p->left_), getKey(p));
+		}
+		if (p->right_ != nullptr)
+		{
+			res &= comparator(getKey(p), getKey(p->right_));
+		}
+	};
 	intTree.inorderRecursiveTraversal(testNode);
-	return testNode.res_;
+	return res;
 }
 
 bool testBalance(IntTree intTree)
 {
-
+	bool res = true;
+	auto testNode = [res](node::node_t< int, int >* p) mutable
+	{
+		res &= (std::abs(node::getHeight(p->left_) - node::getHeight(p->right_)) <= 2);
+	};
+	intTree.inorderRecursiveTraversal(testNode);
+	return res;
 }

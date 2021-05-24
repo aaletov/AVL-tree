@@ -65,11 +65,11 @@ node::node_t< Key, T >* node::recursiveSearchNode(node::node_t< Key, T >* p, Key
 	}
 	if (comparator(key, getKey(p)))
 	{
-		return recursiveSearchNode(p->left_, key);
+		return recursiveSearchNode(p->left_, key, comparator);
 	}
 	else
 	{
-		return recursiveSearchNode(p->right_, key);
+		return recursiveSearchNode(p->right_, key, comparator);
 	}
 }
 
