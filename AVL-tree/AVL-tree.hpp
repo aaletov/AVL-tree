@@ -67,7 +67,7 @@ bool AVL_tree< Key, T, Compare >::insertPair(std::pair< Key, T > pair)
 	}
 	else
 	{
-		return node::insertPair(root_, pair, comparator_);
+		return node::insertPair(root_, root_, pair, comparator_);
 	}
 }
 

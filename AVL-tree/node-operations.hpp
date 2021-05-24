@@ -20,7 +20,7 @@ namespace node
 	template < class Key, class T, class Compare >
 	node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
-	bool insertPair(node_t< Key, T > root, node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
+	bool insertPair(node_t< Key, T >* root, node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
 	template < class Key, class T, class Compare >
 	bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
@@ -43,8 +43,6 @@ namespace node
 	void doRLrotation(node_t< Key, T >* p);
 	template < class Key, class T >
 	void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE);
-	template < class Key, class T >
-	void printNode(std::ostream& out, node_t< Key, T >* p, int cellSize);
 	template < class Key, class T >
 	Key getKey(node_t< Key, T >* p);
 }
@@ -101,10 +99,6 @@ node::node_t< Key, T >* node::iterativeSearchParent(node::node_t< Key, T >* p, K
 	}
 	while (true)
 	{
-		if (key == getKey(p->left_) || key == getKey(p->right_))
-		{
-			break;
-		}
 		if (comparator(key, getKey(p)) && p->left_ == nullptr)
 		{
 			break;
@@ -126,41 +120,39 @@ node::node_t< Key, T >* node::iterativeSearchParent(node::node_t< Key, T >* p, K
 }
 
 template < class Key, class T, class Compare >
-bool node::insertPair(node::node_t< Key, T > root, node::node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
+bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
 {
 	bool res;
-	// Проход по пути поиска, пока не убедимся, что ключа в дереве нет
-	if (std::get< 0 >(pair) == getKey(p->right_) || std::get< 0 > == getKey(p->left_))
+	// Проход по пути поиска
+	if (p != nullptr)
 	{
-		return false;
-	}
-	else if (comparator(std::get< 0 >(pair), getKey(p)))
-	{
-		if (p->left_ != nullptr)
+		if (std::get< 0 >(pair) == getKey(p))
 		{
-			res = insertPair(p->left_, pair, comparator);
-			res = true;
+			return false;
+		}
+		else if (comparator(std::get< 0 >(pair), getKey(p)))
+		{
+			res = insertPair(root, p->left_, pair, comparator);
+		}
+		else
+		{
+			res = insertPair(root, p->right_, pair, comparator);
 		}
 	}
 	else
 	{
-		if (p->right_ != nullptr)
+		// Вставка
+		node::node_t< Key, T >* parent = iterativeSearchParent(root, std::get< 0 >(pair), comparator);
+		if (comparator(std::get< 0 >(pair), getKey(parent)))
 		{
-			res = insertPair(p->right_, pair, comparator);
-			res = true;
+			parent->left_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
 		}
+		else
+		{
+			parent->right_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
+		}
+		return true;
 	}
-	// Вставка
-	if (res == true)
-	if (comparator(std::get< 0 >(pair), getKey(p)))
-	{
-		p->left_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
-	}
-	else
-	{
-		p->right_ = new node::node_t< Key, T >{ nullptr, nullptr, pair };
-	}
-	res = true;
 	// Возврат
 	balance(p);
 	return res;
@@ -349,7 +341,7 @@ int node::getHeight(node::node_t< Key, T >* p)
 	}
 	int leftHeight = getHeight(p->left_);
 	int rightHeight = getHeight(p->right_);
-	return (leftHeight > rightHeight) ? leftHeight : rightHeight;
+	return (leftHeight > rightHeight) ? leftHeight + 1 : rightHeight + 1;
 }
 
 // Малое левое вращение
@@ -415,13 +407,10 @@ void node::print(node::node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 	node::node_t< Key, T >* node = p;
 	if (CELL_SIZE <= 0)
 	{
-		CELL_SIZE = trunc(log10(INT_MAX)) + 1 + 1 + 2;
+		throw -1;
 	}
 
 	int currCellSize = CELL_SIZE * pow(2, (getHeight(p) - 1));
-	int leftSpace;
-	int rightSpace;
-	//int level = 0;
 	int currCellsCount = 1;
 	int currDequeSize;
 	std::deque< node::node_t< Key, T >* > deque;
@@ -433,12 +422,10 @@ void node::print(node::node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 		if (deque[0] != p)
 		{
 			currCellSize /= 2;
-			leftSpace = (currCellSize - 1) / 2;
-			rightSpace = currCellSize - leftSpace;
 			out << '\n';
 			for (int i = 0; i < currDequeSize; i++)
 			{
-				out << std::setw(leftSpace) << '|' << std::setw(rightSpace) << ' ';
+				out << std::setw(currCellSize) << std::internal << '|' << ' ';
 			}
 			out << '\n';
 		}
@@ -454,7 +441,14 @@ void node::print(node::node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 				deque.push_back(deque[i]->left_);
 				deque.push_back(deque[i]->right_);
 			}
-			printNode(out, deque[i], currCellSize);
+			if (deque[i] == nullptr)
+			{
+				out << std::setw(currCellSize) << std::internal << '(' << ' ' << ')';
+			}
+			else
+			{
+				out << std::setw(currCellSize) << std::internal << '(' << std::get< 0 >(deque[i]->pair_) << ')';
+			}
 		}
 		for (int i = 0; i < currDequeSize; i++)
 		{
@@ -463,12 +457,6 @@ void node::print(node::node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
 		out << '\n';
 	}
 	out << '\n';
-}
-
-template < class Key, class T >
-void node::printNode(std::ostream& out, node::node_t< Key, T >* p, int cellSize)
-{
-	out << std::setw(cellSize) << std::internal << '(' << std::get< 0 >(p->pair_) << ')';
 }
 
 template < class Key, class T >

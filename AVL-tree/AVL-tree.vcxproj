@@ -147,6 +147,7 @@
     <ClInclude Include="functions.hpp" />
     <ClInclude Include="node-operations.hpp" />
     <ClInclude Include="node.hpp" />
+    <ClInclude Include="print-int.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

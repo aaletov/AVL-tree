@@ -32,5 +32,8 @@
     <ClInclude Include="functions.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="print-int.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
