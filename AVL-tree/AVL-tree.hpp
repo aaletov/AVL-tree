@@ -12,7 +12,6 @@ class AVL_tree
 public:
 	AVL_tree(Compare comparator);
 	~AVL_tree();
-	//friend std::ostream& operator<<(std::ostream& out, const AVL_tree& tree);
 	bool recursiveSearchKey(Key key) const;
 	bool iterativeSearchKey(Key key) const;
 	bool insertPair(std::pair< Key, T > pair);
@@ -37,14 +36,7 @@ AVL_tree< Key, T, Compare >::~AVL_tree()
 {
 
 }
-/*
-template < class Key, class T, class Compare >
-std::ostream& operator<<(std::ostream& out, const AVL_tree< Key, T, Compare >& tree)
-{
-	print(tree.root_, out, 7);
-	return out;
-}
-*/
+
 template < class Key, class T, class Compare >
 bool AVL_tree< Key, T, Compare >::recursiveSearchKey(Key key) const
 {

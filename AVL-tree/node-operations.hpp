@@ -42,8 +42,6 @@ namespace node
 	template < class Key, class T >
 	void doRLrotation(node_t< Key, T >*& p);
 	template < class Key, class T >
-	void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE);
-	template < class Key, class T >
 	Key getKey(node_t< Key, T >* p);
 }
 
@@ -353,69 +351,6 @@ void node::doRLrotation(node::node_t< Key, T >*& p)
 	p->right_ = p2->left_;
 	p2->left_ = p;
 	p = p2; //
-}
-
-template < class Key, class T >
-void node::print(node::node_t< Key, T >* p, std::ostream& out, int CELL_SIZE)
-{
-	if (p == nullptr)
-	{
-		out << "Tree is empty" << '\n';
-		return;
-	}
-	node::node_t< Key, T >* node = p;
-	if (CELL_SIZE <= 0)
-	{
-		throw -1;
-	}
-
-	int currCellSize = CELL_SIZE * pow(2, (getHeight(p) - 1));
-	int currCellsCount = 1;
-	int currDequeSize;
-	std::deque< node::node_t< Key, T >* > deque;
-
-	deque.push_back(node);
-	while (containsValues(deque))
-	{
-		currDequeSize = deque.size();
-		if (deque[0] != p)
-		{
-			currCellSize /= 2;
-			out << '\n';
-			for (int i = 0; i < currDequeSize; i++)
-			{
-				out << std::setw(currCellSize) << std::internal << '|' << ' ';
-			}
-			out << '\n';
-		}
-		for (int i = 0; i < currDequeSize; i++)
-		{
-			if (deque[i] == nullptr)
-			{
-				deque.push_back(nullptr);
-				deque.push_back(nullptr);
-			}
-			else
-			{
-				deque.push_back(deque[i]->left_);
-				deque.push_back(deque[i]->right_);
-			}
-			if (deque[i] == nullptr)
-			{
-				out << std::setw(currCellSize) << std::internal << '(' << ' ' << ')';
-			}
-			else
-			{
-				out << std::setw(currCellSize) << std::internal << '(' << std::get< 0 >(deque[i]->pair_) << ')';
-			}
-		}
-		for (int i = 0; i < currDequeSize; i++)
-		{
-			deque.pop_front();
-		}
-		out << '\n';
-	}
-	out << '\n';
 }
 
 template < class Key, class T >
