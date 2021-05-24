@@ -24,7 +24,7 @@ namespace node
 	template < class Key, class T, class Compare >
 	bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
-	void deleteNode(node_t< Key, T >* p, node_t< Key, T >* toDelete, Compare comparator);
+	void deleteNode(node_t< Key, T >*& toDelete, Compare comparator);
 	template < class Key, class T >
 	void balance(node_t< Key, T >*& p);
 	template < class Key, class T >
@@ -167,24 +167,33 @@ bool node::deleteKey(node::node_t< Key, T >* p, Key key, Compare comparator)
 	if (p != nullptr)
 	{
 		// Удаление
-		if (key == getKey(p->right_))
+		if (p->right_ != nullptr)
 		{
-			res = true;
-			deleteNode(p, p->right_, comparator);
+			if (key == getKey(p->right_))
+			{
+				res = true;
+				deleteNode(p->right_, comparator);
+			}
+			else if (!comparator(key, getKey(p)))
+			{
+				res = deleteKey(p->right_, key, comparator);
+			}
+
 		}
-		else if (key == getKey(p->left_))
+		if (p->left_ != nullptr)
 		{
-			res = true;
-			deleteNode(p, p->left_, comparator);
+			if (key == getKey(p->left_))
+			{
+				res = true;
+				deleteNode(p->left_, comparator);
+			}
+			else if (comparator(key, getKey(p)))
+			{
+				res = deleteKey(p->left_, key, comparator);
+			}
 		}
-		else if (comparator(key, getKey(p)))
-		{
-			res = deleteKey(p->left_, key, comparator);
-		}
-		else
-		{
-			res = deleteKey(p->right_, key, comparator);
-		}
+
+
 	}
 	else
 	{
@@ -196,76 +205,25 @@ bool node::deleteKey(node::node_t< Key, T >* p, Key key, Compare comparator)
 }
 
 template < class Key, class T, class Compare >
-void node::deleteNode(node::node_t< Key, T >* root, node::node_t< Key, T >* node, Compare comparator)
+void node::deleteNode(node::node_t< Key, T >*& p, Compare comparator)
 {
-	assert(root != nullptr && node != nullptr);
-	node::node_t< Key, T >* p = iterativeSearchParent(root, getKey(node), comparator);
-	node::node_t< Key, T >* left = node->left_;
-	node::node_t< Key, T >* right = node->right_;
-	if (node == root)
-	{
-		node::node_t< Key, T >* minRight = right;
-		while (minRight->left_ != nullptr)
-		{
-			minRight = minRight->left_;
-		}
-		std::pair< Key, T > minRightPair = minRight->key_;
-		if (minRight == right)
-		{
-			right = nullptr;
-		}
-		minRight = nullptr;
-		deleteKey(root, std::get< 0 >(minRightPair), comparator);
-		root = new node::node_t< Key, T >{ left, right, minRightPair };
-		if (left != nullptr)
-		{
-			left->p_ = root;
-		}
-		if (right != nullptr)
-		{
-			right->p_ = root;
-		}
-		delete node;
-		return;
-	}
+	assert(p != nullptr);
+	node::node_t< Key, T >*& left = p->left_;
+	node::node_t< Key, T >*& right = p->right_;
 	if (left == nullptr && right == nullptr)
 	{
-		if (p->left_ == node)
-		{
-			delete node;
-			p->left_ = nullptr;
-		}
-		else
-		{
-			delete node;
-			p->right_ = nullptr;
-		}
+		delete p;
+		p = nullptr;
 	}
 	else if (left == nullptr && right != nullptr)
 	{
-		if (p->left_ == node)
-		{
-			delete node;
-			p->left_ = right;
-		}
-		else
-		{
-			delete node;
-			p->right_ = right;
-		}
+		delete p;
+		p = right;
 	}
 	else if (left != nullptr && right == nullptr)
 	{
-		if (p->left_ == node)
-		{
-			delete node;
-			p->left_ = left;
-		}
-		else
-		{
-			delete node;
-			p->right_ = left;
-		}
+		delete p;
+		p = left;
 	}
 	else
 	{
@@ -274,24 +232,12 @@ void node::deleteNode(node::node_t< Key, T >* root, node::node_t< Key, T >* node
 		{
 			minRight = minRight->left_;
 		}
-		std::pair< Key, T > minRightPair = minRight->key_;
-		if (minRight == right)
-		{
-			right = nullptr;
-		}
-		minRight = nullptr;
-		deleteKey(root, std::get< 0 >(minRightPair), comparator);
-		if (p->left_ == node)
-		{
-			p->left_ = new node::node_t< Key, T >{ left, right, minRightPair };
-			left->p_ = p->left_;
-		}
-		else
-		{
-			p->right_ = new node::node_t< Key, T >{ left, right, minRightPair };
-			left->p_ = p->right_;
-		}
-		delete node;
+		std::pair< Key, T > minRightPair = minRight->pair_;
+		deleteKey(p, getKey(minRight), comparator);
+		node::node_t< Key, T >* tempLeft = left;
+		node::node_t< Key, T >* tempRight = right;
+		delete p;
+		p = new node::node_t< Key, T >{ tempLeft, tempRight, minRightPair };
 	}
 }
 

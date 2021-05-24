@@ -51,4 +51,6 @@ int main()
         printInt(dict, std::cout, 10);
         std::cout << '\n' << '\n' << '\n' << '\n';
     }
+    dict.deleteKey(5);
+    printInt(dict, std::cout, 10);
 }

@@ -145,6 +145,10 @@
     <ClInclude Include="..\AVL-tree\node.hpp" />
     <ClInclude Include="..\AVL-tree\print-int.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test-int.cpp" />
+    <ClCompile Include="test-main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
