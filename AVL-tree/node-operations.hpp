@@ -154,6 +154,7 @@ bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >* p, s
 		return true;
 	}
 	// Возврат
+	std::cout << "Balance invoked for node with key " << getKey(p) << '\n';
 	balance(p);
 	return res;
 }
@@ -335,13 +336,21 @@ void node::balance(node::node_t< Key, T >* p)
 template < class Key, class T >
 int node::getHeight(node::node_t< Key, T >* p)
 {
-	if (p->left_ == nullptr || p->right_ == nullptr)
+	if (p == nullptr)
 	{
-		return 1;
+		return 0;
 	}
-	int leftHeight = getHeight(p->left_);
-	int rightHeight = getHeight(p->right_);
-	return (leftHeight > rightHeight) ? leftHeight + 1 : rightHeight + 1;
+	int left = 1;
+	int right = 1;
+	if (p->left_ != nullptr)
+	{
+		left += getHeight(p->left_);
+	}
+	if (p->right_ != nullptr)
+	{
+		right += getHeight(p->right_);
+	}
+	return std::max(left, right);
 }
 
 // Малое левое вращение

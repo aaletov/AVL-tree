@@ -26,7 +26,7 @@ void printInt(AVL_tree< int, int, std::function< bool(int, int) > > tree, std::o
         CELL_SIZE = trunc(log10(INT_MAX)) + 1 + 1 + 2;
     }
 
-    int currCellSize = CELL_SIZE * pow(2, node::getHeight(root));
+    int currCellSize = CELL_SIZE * pow(2, node::getHeight(root) - 1);
     int leftSpace;
     int rightSpace;
     //int level = 0;
