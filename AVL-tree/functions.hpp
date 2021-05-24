@@ -5,6 +5,7 @@
 
 template < class Key, class T >
 bool containsValues(std::deque<T*>& deque);
+bool lexioComp(std::string lword, std::string rword);
 
 template <typename T>
 bool containsValues(std::deque<T*>& deque)
@@ -19,6 +20,11 @@ bool containsValues(std::deque<T*>& deque)
         }
     }
     return x;
+}
+
+bool lexioComp(std::string lword, std::string rword)
+{
+    return std::lexicographical_compare(lword.begin(), lword.end(), rword.begin(), rword.end());
 }
 
 #endif

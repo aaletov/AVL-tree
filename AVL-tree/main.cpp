@@ -9,10 +9,7 @@
 int main()
 {
     /*
-    auto comparator = [](std::string lword, std::string rword)
-    {
-        return std::lexicographical_compare(lword.begin(), lword.end(), rword.begin(), rword.end());
-    };
+
     AVL_tree< std::string, int, std::function< bool(std::string, std::string) > > dict(comparator);
     std::vector< std::pair< std::string, int > > vals
     {

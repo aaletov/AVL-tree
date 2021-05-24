@@ -7,7 +7,6 @@
 #include <iostream>
 #include <climits>
 #include "node.hpp"
-#include "functions.hpp"
 
 namespace node
 {
@@ -48,7 +47,10 @@ namespace node
 template < class Key, class T, class Callable >
 void node::inorderRecursiveTraversal(node::node_t< Key, T >* p, Callable callback)
 {
-	assert(p != nullptr);
+	if (p == nullptr)
+	{
+		return;
+	}
 	inorderRecursiveTraversal(p->left_, callback);
 	callback(p);
 	inorderRecursiveTraversal(p->right_, callback);
@@ -152,7 +154,6 @@ bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, 
 		return true;
 	}
 	// Возврат
-	std::cout << "Balance invoked for node with key " << getKey(p) << '\n';
 	balance(p);
 	return res;
 }
@@ -294,7 +295,7 @@ int node::getHeight(node::node_t< Key, T >* p)
 	{
 		right += getHeight(p->right_);
 	}
-	return std::max(left, right);
+	return (left > right) ? left : right;
 }
 
 // Малое левое вращение

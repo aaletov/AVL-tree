@@ -10,6 +10,7 @@ template < class Key, class T, class Compare >
 class AVL_tree
 {
 public:
+	AVL_tree() = default;
 	AVL_tree(Compare comparator);
 	~AVL_tree();
 	bool recursiveSearchKey(Key key) const;
@@ -73,7 +74,7 @@ template < class Key, class T, class Compare >
 template < class Callable >
 void AVL_tree< Key, T, Compare >::inorderRecursiveTraversal(Callable callback)
 {
-	inorderRecursiveTraversal(this->root_, callback);
+	node::inorderRecursiveTraversal(this->root_, callback);
 }
 
 template < class Key, class T, class Compare >

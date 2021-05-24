@@ -139,15 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="test-functions.cpp" />
+    <ClCompile Include="test-int.cpp" />
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="..\AVL-tree\AVL-tree.hpp" />
     <ClInclude Include="..\AVL-tree\functions.hpp" />
     <ClInclude Include="..\AVL-tree\node-operations.hpp" />
     <ClInclude Include="..\AVL-tree\node.hpp" />
     <ClInclude Include="..\AVL-tree\print-int.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="test-int.cpp" />
-    <ClCompile Include="test-main.cpp" />
+    <ClInclude Include="test-functions.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
