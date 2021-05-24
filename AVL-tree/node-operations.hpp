@@ -26,21 +26,21 @@ namespace node
 	template < class Key, class T, class Compare >
 	void deleteNode(node_t< Key, T >* p, node_t< Key, T >* toDelete, Compare comparator);
 	template < class Key, class T >
-	void balance(node_t< Key, T >* p);
+	void balance(node_t< Key, T >*& p);
 	template < class Key, class T >
 	int getHeight(node_t< Key, T >* p);
 	// Малое левое вращение
 	template < class Key, class T >
-	void doRRrotation(node_t< Key, T >* p);
+	void doRRrotation(node_t< Key, T >*& p);
 	// Малое правое вращение
 	template < class Key, class T >
-	void doLLrotation(node_t< Key, T >* p);
+	void doLLrotation(node_t< Key, T >*& p);
 	// Большое правое вращение
 	template < class Key, class T >
-	void doLRrotation(node_t< Key, T >* p);
+	void doLRrotation(node_t< Key, T >*& p);
 	// Большое левое вращение
 	template < class Key, class T >
-	void doRLrotation(node_t< Key, T >* p);
+	void doRLrotation(node_t< Key, T >*& p);
 	template < class Key, class T >
 	void print(node_t< Key, T >* p, std::ostream& out, int CELL_SIZE);
 	template < class Key, class T >
@@ -296,7 +296,7 @@ void node::deleteNode(node::node_t< Key, T >* root, node::node_t< Key, T >* node
 }
 
 template < class Key, class T >
-void node::balance(node::node_t< Key, T >* p)
+void node::balance(node::node_t< Key, T >*& p)
 {
 	assert(p != nullptr);
 	if (p->left_ == nullptr || p->right_ == nullptr)
@@ -355,29 +355,31 @@ int node::getHeight(node::node_t< Key, T >* p)
 
 // Малое левое вращение
 template < class Key, class T >
-void node::doRRrotation(node::node_t< Key, T >* p)
+void node::doRRrotation(node::node_t< Key, T >*& p)
 {
 	assert(p != nullptr);
 	assert(p->right_ != nullptr);
 	node::node_t< Key, T >* p1 = p->right_;
 	p->right_ = p1->left_;
 	p1->left_ = p;
+	p = p1; //
 }
 
 // Малое правое вращение
 template < class Key, class T >
-void node::doLLrotation(node::node_t< Key, T >* p)
+void node::doLLrotation(node::node_t< Key, T >*& p)
 {
 	assert(p != nullptr);
 	assert(p->left_ != nullptr);
 	node::node_t< Key, T >* p1 = p->left_;
 	p->left_ = p1->right_;
 	p1->right_ = p;
+	p = p1; //
 }
 
 // Большое правое вращение
 template < class Key, class T >
-void node::doLRrotation(node::node_t< Key, T >* p)
+void node::doLRrotation(node::node_t< Key, T >*& p)
 {
 	assert(p != nullptr);
 	assert(p->left_ != nullptr);
@@ -388,11 +390,12 @@ void node::doLRrotation(node::node_t< Key, T >* p)
 	p2->left_ = p1;
 	p->left_ = p2->right_;
 	p2->right_ = p;
+	p = p2; //
 }
 
 // Большое левое вращение
 template < class Key, class T >
-void node::doRLrotation(node::node_t< Key, T >* p)
+void node::doRLrotation(node::node_t< Key, T >*& p)
 {
 	assert(p != nullptr);
 	assert(p->right_ != nullptr);
@@ -403,6 +406,7 @@ void node::doRLrotation(node::node_t< Key, T >* p)
 	p2->right_ = p1;
 	p->right_ = p2->left_;
 	p2->left_ = p;
+	p = p2; //
 }
 
 template < class Key, class T >
