@@ -45,9 +45,9 @@ int main()
     };
     for (auto& pair: vals)
     {
-        std::cout << "The height of tree is " << node::getHeight(dict.getRoot()) << '\n';
         std::cout << "Inserting " << std::get< 0 >(pair) << '\n';
         dict.insertPair(pair);
+        std::cout << "The height of tree is " << node::getHeight(dict.getRoot()) << '\n';
         printInt(dict, std::cout, 10);
         std::cout << '\n' << '\n' << '\n' << '\n';
     }

@@ -20,7 +20,7 @@ namespace node
 	template < class Key, class T, class Compare >
 	node_t< Key, T >* iterativeSearchParent(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
-	bool insertPair(node_t< Key, T >* root, node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator);
+	bool insertPair(node_t< Key, T >* root, node_t< Key, T >*& p, std::pair< Key, T > pair, Compare comparator);
 	template < class Key, class T, class Compare >
 	bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
@@ -120,7 +120,7 @@ node::node_t< Key, T >* node::iterativeSearchParent(node::node_t< Key, T >* p, K
 }
 
 template < class Key, class T, class Compare >
-bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >* p, std::pair< Key, T > pair, Compare comparator)
+bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, std::pair< Key, T > pair, Compare comparator)
 {
 	bool res;
 	// Проход по пути поиска
@@ -299,7 +299,7 @@ template < class Key, class T >
 void node::balance(node::node_t< Key, T >*& p)
 {
 	assert(p != nullptr);
-	if (p->left_ == nullptr || p->right_ == nullptr)
+	if (p->left_ == nullptr && p->right_ == nullptr)
 	{
 		return;
 	}
