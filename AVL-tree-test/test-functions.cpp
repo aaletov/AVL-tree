@@ -75,6 +75,7 @@ bool testSort(IntTree intTree, IntCompare comparator)
 		{
 			res &= comparator(getKey(p), getKey(p->right_));
 		}
+		return true;
 	};
 	intTree.inorderRecursiveTraversal(testNode);
 	return res;
@@ -86,6 +87,7 @@ bool testBalance(IntTree intTree)
 	auto testNode = [res](node::node_t< int, int >* p) mutable
 	{
 		res &= (std::abs(node::getHeight(p->left_) - node::getHeight(p->right_)) <= 2);
+		return true;
 	};
 	intTree.inorderRecursiveTraversal(testNode);
 	return res;

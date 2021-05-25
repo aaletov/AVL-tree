@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\AVL-tree\dictionary.cpp" />
     <ClCompile Include="test-functions.cpp" />
     <ClCompile Include="test-int.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AVL-tree\AVL-tree.hpp" />
+    <ClInclude Include="..\AVL-tree\dictionary.hpp" />
     <ClInclude Include="..\AVL-tree\functions.hpp" />
     <ClInclude Include="..\AVL-tree\node-operations.hpp" />
     <ClInclude Include="..\AVL-tree\node.hpp" />

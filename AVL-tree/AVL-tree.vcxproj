@@ -140,10 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dictionary.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AVL-tree.hpp" />
+    <ClInclude Include="dictionary.hpp" />
     <ClInclude Include="functions.hpp" />
     <ClInclude Include="node-operations.hpp" />
     <ClInclude Include="node.hpp" />

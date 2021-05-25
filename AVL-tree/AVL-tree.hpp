@@ -17,8 +17,9 @@ public:
 	bool iterativeSearchKey(Key key) const;
 	bool insertPair(std::pair< Key, T > pair);
 	bool deleteKey(Key key);
-	template < class Callable >
-	void inorderRecursiveTraversal(Callable callback);
+	void inorderRecursiveTraversal(std::function< bool(node::node_t< Key, T >*) > callback);
+	std::pair< Key, T >& getPairByKey(Key key);
+	std::pair< Key, T >& getPairByVal(T val);
 	node::node_t< Key, T >* getRoot();
 
 private:
@@ -71,10 +72,31 @@ bool AVL_tree< Key, T, Compare >::deleteKey(Key key)
 }
 
 template < class Key, class T, class Compare >
-template < class Callable >
-void AVL_tree< Key, T, Compare >::inorderRecursiveTraversal(Callable callback)
+void AVL_tree< Key, T, Compare >::inorderRecursiveTraversal(std::function< bool(node::node_t< Key, T >*) > callback)
 {
 	node::inorderRecursiveTraversal(this->root_, callback);
+}
+
+template < class Key, class T, class Compare >
+std::pair< Key, T >& AVL_tree< Key, T, Compare >::getPairByKey(Key key)
+{
+	return node::iterativeSearchNode(root_, key, comparator_)->pair_;
+}
+
+template < class Key, class T, class Compare >
+std::pair< Key, T >& AVL_tree< Key, T, Compare >::getPairByVal(T val)
+{
+	node::node_t< Key, T >* toFind;
+	auto searcher = [toFind, val](node::node_t< Key, T >* p) mutable
+	{
+		if (std::get< 1 >(p->pair_) == val)
+		{
+			toFind = p;
+			return false;
+		}
+		return true;
+	};
+	return toFind->pair_;
 }
 
 template < class Key, class T, class Compare >

@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(test_root_deleting)
 	size_t size = std::abs(generator()) * 1 + 11;
 	std::cout << "Making tree of size " << size << '\n';
 	IntTree intTree = makeRandIntTree(size);
-	int rootKey = getKey(intTree.getRoot());
+	int rootKey = node::getKey(intTree.getRoot());
 	BOOST_REQUIRE_NO_THROW(intTree.deleteKey(rootKey));
 	BOOST_REQUIRE(!intTree.recursiveSearchKey(rootKey));
 }
@@ -58,6 +58,7 @@ BOOST_AUTO_TEST_CASE(test_uniqueness)
 	auto inserter = [treeVector](node::node_t< int, int >* p) mutable
 	{
 		treeVector.push_back(p->pair_);
+		return true;
 	};
 	intTree.inorderRecursiveTraversal(inserter);
 	std::set< std::pair< int, int > > treeSet(treeVector.begin(), treeVector.end());

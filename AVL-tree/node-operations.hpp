@@ -10,8 +10,8 @@
 
 namespace node
 {
-	template < class Key, class T, class Callable >
-	void inorderRecursiveTraversal(node_t< Key, T >* p, Callable callback);
+	template < class Key, class T >
+	void inorderRecursiveTraversal(node_t< Key, T >* p, std::function< bool(node_t< Key, T >*) > callback);
 	template < class Key, class T, class Compare >
 	node_t< Key, T >* recursiveSearchNode(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
@@ -44,8 +44,8 @@ namespace node
 	Key getKey(node_t< Key, T >* p);
 }
 
-template < class Key, class T, class Callable >
-void node::inorderRecursiveTraversal(node::node_t< Key, T >* p, Callable callback)
+template < class Key, class T >
+void node::inorderRecursiveTraversal(node::node_t< Key, T >* p, std::function< bool(node::node_t< Key, T >*) > callback)
 {
 	if (p == nullptr)
 	{

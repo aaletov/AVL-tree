@@ -21,6 +21,9 @@
     <ClCompile Include="test-functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\AVL-tree\dictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AVL-tree\AVL-tree.hpp">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="test-functions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AVL-tree\dictionary.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
