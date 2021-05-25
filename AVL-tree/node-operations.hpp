@@ -21,7 +21,7 @@ namespace node
 	template < class Key, class T, class Compare >
 	bool insertPair(node_t< Key, T >* root, node_t< Key, T >*& p, std::pair< Key, T > pair, Compare comparator);
 	template < class Key, class T, class Compare >
-	bool deleteKey(node_t< Key, T >* p, Key key, Compare comparator);
+	bool deleteKey(node_t< Key, T >*& p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
 	void deleteNode(node_t< Key, T >*& toDelete, Compare comparator);
 	template < class Key, class T >
@@ -159,10 +159,14 @@ bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, 
 }
 
 template < class Key, class T, class Compare >
-bool node::deleteKey(node::node_t< Key, T >* p, Key key, Compare comparator)
+bool node::deleteKey(node::node_t< Key, T >*& p, Key key, Compare comparator)
 {
 	bool res;
 	// Проход по пути поиска
+	if (getKey(p) == key)
+	{
+		deleteNode(p, comparator);
+	}
 	if (p != nullptr)
 	{
 		// Удаление

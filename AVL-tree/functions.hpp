@@ -2,6 +2,7 @@
 #define FUNCTIONS_HPP
 
 #include <deque>
+#include <string>
 
 template < class Key, class T >
 bool containsValues(std::deque<T*>& deque);
