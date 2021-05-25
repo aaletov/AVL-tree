@@ -1,53 +1,51 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
-#include <functional>
-#include <string>
-#include <algorithm>
-#include "AVL-tree.hpp"
-#include "print-int.hpp"
+#include "dictionary.hpp"
 
 int main()
 {
-    /*
+	setlocale(LC_ALL, "Russian");
+	const std::vector< std::string > NOT_WORDS{ "-", ",", ".", ":" };
+	Dictionary dict;
+	long long unsigned counter = 0;
+	std::ifstream fs;
+	fs.open("..\\tolstoi.txt");
+	if (!fs.is_open())
+	{
+		return -2;
+	}
+	std::string word;
+	while (!(fs.eof() || fs.fail()))
+	{
 
-    AVL_tree< std::string, int, std::function< bool(std::string, std::string) > > dict(comparator);
-    std::vector< std::pair< std::string, int > > vals
-    {
-        {"biba", 5},
-        {"aye", 3},
-        {"hui", 15},
-        {"soldatkina", 1},
-        {"miish", 49},
-        {"weewee", 20},
-        {"evgeny", 33},
-        {"ayestalin", 11},
-        {"kaliivan", 93},
-        {"aboba", 24}
-    };
-    */
-    auto comparator = std::less< int >();
-    AVL_tree< int, int, std::function< bool(int, int) > > dict(comparator);
-    std::vector< std::pair< int, int > > vals
-    {
-        {5, 5},
-        {3, 3},
-        {15, 15},
-        {1, 1},
-        {49, 49},
-        {20, 20},
-        {33, 33},
-        {11, 11},
-        {93, 93},
-        {24, 24}
-    };
-    for (auto& pair: vals)
-    {
-        std::cout << "Inserting " << std::get< 0 >(pair) << '\n';
-        dict.insertPair(pair);
-        std::cout << "The height of tree is " << node::getHeight(dict.getRoot()) << '\n';
-        printInt(dict, std::cout, 10);
-        std::cout << '\n' << '\n' << '\n' << '\n';
-    }
-    dict.deleteKey(5);
-    printInt(dict, std::cout, 10);
+		fs >> word;
+		if (std::find(NOT_WORDS.begin(), NOT_WORDS.end(), word) != NOT_WORDS.end())
+		{
+			continue;
+		}
+		counter++;
+		if (counter % 10000 == 0)
+		{
+			std::cout << "Read " << counter / 10000 <<  "0000\n";
+			Dictionary::value_type max1 = dict.getMaxByValue();
+			std::cout << std::get< 0 >(max1) << ' ' << std::get< 1 >(max1) << '\n';
+		}
+		if (dict.search(word))
+		{
+			dict.incrKey(word);
+		}
+		else
+		{
+			dict.insert({ word, 1 });
+		}
+	}
+	fs.close();
+	std::cout << "End of file\n";
+	Dictionary::value_type max1 = dict.getMaxByValue();
+	Dictionary::value_type max2 = dict.getPredecessorByValue(std::get< 0 >(max1));
+	Dictionary::value_type max3 = dict.getPredecessorByValue(std::get< 0 >(max2));
+	std::cout << std::get< 0 >(max1) << ' ' << std::get< 1 >(max1) << '\n';
+	std::cout << std::get< 0 >(max2) << ' ' << std::get< 1 >(max2) << '\n';
+	std::cout << std::get< 0 >(max3) << ' ' << std::get< 1 >(max3) << '\n';
 }

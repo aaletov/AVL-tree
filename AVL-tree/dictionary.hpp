@@ -19,13 +19,8 @@ public:
 	value_type getMaxByValue();
 	value_type getPredecessorByValue(std::string key);
 private:
-	static std::function< bool(std::string, std::string) > comparator_;
+	std::function< bool(std::string, std::string) > dictComparator_;
 	tree_type tree_;
-};
-
-std::function< bool(std::string, std::string) > Dictionary::comparator_ = [](std::string lword, std::string rword)
-{
-	return std::lexicographical_compare(lword.begin(), lword.end(), rword.begin(), rword.end());
 };
 
 #endif
