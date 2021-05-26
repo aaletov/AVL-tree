@@ -12,7 +12,7 @@ endif
 # The variable SILENT controls additional messages
 
 CXXFLAGS = -U__STRICT_ANSI__
-CPPFLAGS += -Wall -Wextra -Werror -Wno-missing-field-initializers -Wold-style-cast $(if $(BOOST_LOCATION),-isystem $(BOOST_LOCATION))
+CPPFLAGS += -Wall -Wextra -Wno-missing-field-initializers -Wold-style-cast $(if $(BOOST_LOCATION),-isystem $(BOOST_LOCATION))
 CXXFLAGS += -g
 
 system   := $(shell uname)
@@ -28,14 +28,6 @@ TIMEOUT_CMD := gtimeout
 else
 TIMEOUT_CMD := timeout
 endif
-
-my_test_sources =
-my_sources      = $(filter-out $(1)/test-%,$(wildcard $(1)/*.cpp))
-my_headers      = $(wildcard $(1)/*.h) $(wildcard $(1)/*.hpp) $(wildcard $(1)/*.hxx)
-
-my_test_objects :=
-my_objects      :=
-
 
 students := $(filter-out out Makefile README.md,$(wildcard *))
 labs     := $(foreach student,$(students),$(wildcard $(student)/??) $(wildcard $(student)/??.?))
@@ -86,7 +78,7 @@ out/%/test-lab: $$(call lab_test_objects,%) $$(call lab_objects,%) | $$(@D)/.dir
 
 $(test_objects): out/%.o: %.cpp | $$(@D)/.dir
 	$(if $(SILENT),,@echo [C++ ] $<)
-	$(hidecmd)$(CXX) $(CPPFLAGS) $(CXXFLAGS) -Wno-old-style-cast -Wno-unused-parameter -MMD -MP -c $(call common_include,$<) -o $@ $<
+	$(hidecmd)$(CXX) $(CPPFLAGS) $(CXXFLAGS) -Wno-old-style-cast -MMD -MP -c $(call common_include,$<) -o $@ $<
 
 $(objects): out/%.o: %.cpp | $$(@D)/.dir
 	$(if $(SILENT),,@echo [C++ ] $<)
@@ -94,7 +86,7 @@ $(objects): out/%.o: %.cpp | $$(@D)/.dir
 
 $(header_checks): out/%.header: % | $$(@D)/.dir
 	$(if $(SILENT),,@echo [HDR ] $<)
-	$(hidecmd)$(CXX) $(CPPFLAGS) $(CXXFLAGS) -Wno-unused-const-variable -c $(call common_include,$<) -fsyntax-only $<
+	$(hidecmd)$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(call common_include,$<) -fsyntax-only $<
 	@touch $@
 
 %/.dir:
