@@ -3,13 +3,12 @@
 
 #include <functional>
 #include "../AVL-tree/AVL-tree.hpp"
+#include "../AVL-tree/functions.hpp"
 
-using IntTree = AVL_tree< int, int, std::function< bool(int, int) > >;
-using IntCompare = std::function< bool(int, int) >;
-
+using IntTree = AVL_tree< int, int, intComparator >;
 std::function< int() > getGenerator();
-AVL_tree< int, int, std::function< bool(int, int) > > makeRandIntTree(size_t size);
-bool testSort(IntTree intTree, IntCompare comparator);
-bool testBalance(IntTree intTree);
+AVL_tree< int, int, intComparator > makeRandIntTree(size_t size);
+bool testSort(IntTree& intTree);
+bool testBalance(IntTree& intTree);
 
 #endif

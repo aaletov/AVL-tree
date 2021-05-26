@@ -1,14 +1,5 @@
 #include "dictionary.hpp"
 
-Dictionary::Dictionary()
-{
-	dictComparator_ = [](std::string lword, std::string rword)
-	{
-		return std::lexicographical_compare(lword.begin(), lword.end(), rword.begin(), rword.end());
-	};
-	tree_ = tree_type(dictComparator_);
-}
-
 bool Dictionary::insert(std::pair< std::string, int > pair)
 {
 	return tree_.insertPair(pair);

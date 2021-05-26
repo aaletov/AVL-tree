@@ -10,10 +10,10 @@
 #include "AVL-tree.hpp"
 #include "functions.hpp"
 
-void printInt(AVL_tree< int, int, std::function< bool(int, int) > > tree, std::ostream& out, int CELL_SIZE);
+void printInt(AVL_tree< int, int, intComparator >& tree, std::ostream& out, int CELL_SIZE);
 void printIntNode(std::ostream& out, node::node_t< int, int >* p, int cellSize);
 
-void printInt(AVL_tree< int, int, std::function< bool(int, int) > > tree, std::ostream& out, int CELL_SIZE)
+void printInt(AVL_tree< int, int, intComparator >& tree, std::ostream& out, int CELL_SIZE)
 {
     node::node_t< int, int >* root = tree.getRoot();
     if (root == nullptr)

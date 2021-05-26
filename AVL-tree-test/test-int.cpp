@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE AVL
+#define BOOST_TEST_DYN_LINK
 #include <iostream>
 #include <set>
 #include <boost/test/included/unit_test.hpp>

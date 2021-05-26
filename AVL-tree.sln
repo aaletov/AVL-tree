@@ -7,6 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree", "AVL-tree\AVL-tr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree-test", "AVL-tree-test\AVL-tree-test.vcxproj", "{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50893D37-D933-46B1-B1F5-36C6AC76383C}"
+	ProjectSection(SolutionItems) = preProject
+		tolstoi.txt = tolstoi.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

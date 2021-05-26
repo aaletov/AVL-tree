@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cassert>
 #include <iomanip>
+#include <queue>
 #include <iostream>
 #include <climits>
 #include "node.hpp"
@@ -12,6 +13,8 @@ namespace node
 {
 	template < class Key, class T >
 	void inorderRecursiveTraversal(node_t< Key, T >* p, std::function< bool(node_t< Key, T >*) > callback);
+	template < class Key, class T >
+	void levelOrderWalk(node_t< Key, T >* node, std::function< bool(node::node_t< Key, T >*) > callback);
 	template < class Key, class T, class Compare >
 	node_t< Key, T >* recursiveSearchNode(node_t< Key, T >* p, Key key, Compare comparator);
 	template < class Key, class T, class Compare >
@@ -54,6 +57,43 @@ void node::inorderRecursiveTraversal(node::node_t< Key, T >* p, std::function< b
 	inorderRecursiveTraversal(p->left_, callback);
 	callback(p);
 	inorderRecursiveTraversal(p->right_, callback);
+}
+
+struct counter_t
+{
+	int count = 0;
+	void incr()
+	{
+		count++;
+	}
+};
+
+template < class Key, class T >
+void node::levelOrderWalk(node::node_t< Key, T >* p, std::function< bool(node::node_t< Key, T >*) > callback)
+{
+	if (p == nullptr)
+	{
+		return;
+	}
+	std::queue< node::node_t< Key, T >* > queue;
+	do
+	{
+		if (p->left_ != nullptr)
+		{
+			queue.push(p->left_);
+		}
+		if (p->right_ != nullptr)
+		{
+			queue.push(p->right_);
+		}
+		callback(p);
+		if (!queue.empty())
+		{
+			p = queue.front();
+			queue.pop();
+		}
+	} while (!queue.empty() || (queue.empty() && ((p->left_ == nullptr) != (p->right_ == nullptr))));
+	callback(p);
 }
 
 template < class Key, class T, class Compare >
@@ -122,7 +162,7 @@ node::node_t< Key, T >* node::iterativeSearchParent(node::node_t< Key, T >* p, K
 template < class Key, class T, class Compare >
 bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, std::pair< Key, T > pair, Compare comparator)
 {
-	bool res;
+	bool res = false;
 	// Проход по пути поиска
 	if (p != nullptr)
 	{
@@ -161,13 +201,14 @@ bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, 
 template < class Key, class T, class Compare >
 bool node::deleteKey(node::node_t< Key, T >*& p, Key key, Compare comparator)
 {
-	bool res;
+	bool res = false;
 	// Проход по пути поиска
 	if (getKey(p) == key)
 	{
 		deleteNode(p, comparator);
+		res = true;
 	}
-	if (p != nullptr)
+	else if (p != nullptr)
 	{
 		// Удаление
 		if (p->right_ != nullptr)
@@ -195,8 +236,6 @@ bool node::deleteKey(node::node_t< Key, T >*& p, Key key, Compare comparator)
 				res = deleteKey(p->left_, key, comparator);
 			}
 		}
-
-
 	}
 	else
 	{
@@ -236,18 +275,24 @@ void node::deleteNode(node::node_t< Key, T >*& p, Compare comparator)
 			minRight = minRight->left_;
 		}
 		std::pair< Key, T > minRightPair = minRight->pair_;
-		deleteKey(p, getKey(minRight), comparator);
+		deleteKey(p->right_, getKey(minRight), comparator);
 		node::node_t< Key, T >* tempLeft = left;
 		node::node_t< Key, T >* tempRight = right;
 		delete p;
 		p = new node::node_t< Key, T >{ tempLeft, tempRight, minRightPair };
 	}
+	right = nullptr;
+	left = nullptr;
+	balance(p);
 }
 
 template < class Key, class T >
 void node::balance(node::node_t< Key, T >*& p)
 {
-	assert(p != nullptr);
+	if (p == nullptr)
+	{
+		return;
+	}
 	if (p->left_ == nullptr && p->right_ == nullptr)
 	{
 		return;

@@ -6,7 +6,6 @@
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	const std::vector< std::string > NOT_WORDS{ "-", ",", ".", ":" };
 	Dictionary dict;
 	long long unsigned counter = 0;
 	std::ifstream fs;
@@ -20,7 +19,8 @@ int main()
 	{
 
 		fs >> word;
-		if (std::find(NOT_WORDS.begin(), NOT_WORDS.end(), word) != NOT_WORDS.end())
+		formatWord(word);
+		if (!filterWord(word))
 		{
 			continue;
 		}
@@ -43,9 +43,11 @@ int main()
 	fs.close();
 	std::cout << "End of file\n";
 	Dictionary::value_type max1 = dict.getMaxByValue();
-	Dictionary::value_type max2 = dict.getPredecessorByValue(std::get< 0 >(max1));
-	Dictionary::value_type max3 = dict.getPredecessorByValue(std::get< 0 >(max2));
-	std::cout << std::get< 0 >(max1) << ' ' << std::get< 1 >(max1) << '\n';
-	std::cout << std::get< 0 >(max2) << ' ' << std::get< 1 >(max2) << '\n';
-	std::cout << std::get< 0 >(max3) << ' ' << std::get< 1 >(max3) << '\n';
+	std::cout << "Max " << std::get< 0 >(max1) << ' ' << std::get< 1 >(max1) << '\n';
+	Dictionary::value_type predecessor = max1;
+	for (int i = 2; i < 101; i++)
+	{
+		predecessor = dict.getPredecessorByValue(std::get< 0 >(predecessor));
+		std::cout << i << " place is word \"" << std::get< 0 >(predecessor) << "\" " << std::get< 1 >(predecessor) << " occurances\n";
+	}
 }

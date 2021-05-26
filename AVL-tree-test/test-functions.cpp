@@ -18,24 +18,24 @@ std::function< int() > getGenerator()
 	return generator;
 }
 
-AVL_tree< int, int, std::function< bool(int, int) > > makeRandIntTree(size_t size)
+AVL_tree< int, int, intComparator > makeRandIntTree(size_t size)
 {
 	std::function< int() > gen = getGenerator();
-	auto intTree = IntTree(std::less< int >());
+	IntTree intTree;
 	int elem;
 	for (int i = 0; i < size; i++)
 	{
 		elem = gen();
 		intTree.insertPair({ elem, elem });
 	}
-	return intTree;\
+	return intTree;
 }
 
 struct test_node_t
 {
-	IntCompare comparator_;
 	bool res_;
-	test_node_t(IntCompare comparator) :
+	IntTree::comp_type comparator_;
+	test_node_t(IntTree::comp_type comparator) :
 		comparator_(comparator),
 		res_(true)
 	{}
@@ -58,8 +58,9 @@ struct test_node_t
 	}
 };
 
-bool testSort(IntTree intTree, IntCompare comparator)
+bool testSort(IntTree& intTree)
 {
+	IntTree::comp_type comparator = intTree.getComparator();
 	bool res = true;
 	auto testNode = [res, comparator](node::node_t< int, int >* p) mutable
 	{
@@ -81,7 +82,7 @@ bool testSort(IntTree intTree, IntCompare comparator)
 	return res;
 }
 
-bool testBalance(IntTree intTree)
+bool testBalance(IntTree& intTree)
 {
 	bool res = true;
 	auto testNode = [res](node::node_t< int, int >* p) mutable

@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>test-main.cpp</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -140,8 +141,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\AVL-tree\dictionary.cpp" />
+    <ClCompile Include="..\AVL-tree\functions.cpp" />
     <ClCompile Include="test-functions.cpp" />
-    <ClCompile Include="test-int.cpp" />
+    <ClCompile Include="test-main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\AVL-tree\AVL-tree.hpp" />
