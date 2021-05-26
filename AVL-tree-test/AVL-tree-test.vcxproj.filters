@@ -21,10 +21,16 @@
     <ClCompile Include="..\AVL-tree\dictionary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test-main.cpp">
+    <ClCompile Include="..\AVL-tree\functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\AVL-tree\functions.cpp">
+    <ClCompile Include="test-int.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test-word-oper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test-main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

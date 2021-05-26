@@ -142,12 +142,14 @@
   <ItemGroup>
     <ClCompile Include="dictionary.cpp" />
     <ClCompile Include="functions.cpp" />
+    <ClCompile Include="int-comp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AVL-tree.hpp" />
     <ClInclude Include="dictionary.hpp" />
     <ClInclude Include="functions.hpp" />
+    <ClInclude Include="int-comp.hpp" />
     <ClInclude Include="node-operations.hpp" />
     <ClInclude Include="node.hpp" />
     <ClInclude Include="print-int.hpp" />

@@ -9,6 +9,7 @@
 #include "node.hpp"
 #include "AVL-tree.hpp"
 #include "functions.hpp"
+#include "int-comp.hpp"
 
 void printInt(AVL_tree< int, int, intComparator >& tree, std::ostream& out, int CELL_SIZE);
 void printIntNode(std::ostream& out, node::node_t< int, int >* p, int cellSize);

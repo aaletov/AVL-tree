@@ -9,7 +9,6 @@ template < class Key, class T >
 bool containsValues(std::deque<T*>& deque);
 void formatWord(std::string& word);
 bool filterWord(const std::string& word);
-bool intComparator(int key1, int key2) { return key1 < key2; }
 
 template <typename T>
 bool containsValues(std::deque<T*>& deque)

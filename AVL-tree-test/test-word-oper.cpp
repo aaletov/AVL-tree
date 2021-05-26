@@ -1,6 +1,5 @@
-#define BOOST_TEST_DYN_LINK
-#include <boost/test/included/unit_test.hpp>
-#include "..\AVL-tree\functions.hpp"
+#include <boost/test/unit_test.hpp>
+#include "../AVL-tree/functions.hpp"
 
 BOOST_AUTO_TEST_SUITE(test_word_oper)
 

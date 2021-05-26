@@ -3,7 +3,7 @@
 
 #include <functional>
 #include "../AVL-tree/AVL-tree.hpp"
-#include "../AVL-tree/functions.hpp"
+#include "../AVL-tree/int-comp.hpp"
 
 using IntTree = AVL_tree< int, int, intComparator >;
 std::function< int() > getGenerator();
