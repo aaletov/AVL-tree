@@ -32,11 +32,14 @@ public:
 	node::node_t< Key, T >* getRoot();
 	auto getComparator() -> bool(*)(Key, Key)
 	{
-		return comparator_;
+		return this->comparator_;
 	}
 
 private:
-	friend void swap(AVL_tree& lhs, AVL_tree& rhs);
+	friend void swap(AVL_tree& lhs, AVL_tree& rhs)
+	{
+		std::swap(lhs.root_, rhs.root_);
+	}
 	comp_type comparator_;
 	node::node_t< Key, T >* root_;
 };
@@ -155,12 +158,6 @@ template < class Key, class T, bool (*comparator)(Key, Key) >
 node::node_t< Key, T >* AVL_tree< Key, T, comparator >::getRoot()
 {
 	return root_;
-}
-
-template < class Key, class T, bool (*comparator)(Key, Key) >
-void swap(AVL_tree< Key, T, comparator >& lhs, AVL_tree< Key, T, comparator >& rhs)
-{
-	std::swap(lhs.getRoot(), rhs.getRoot());
 }
 
 #endif
