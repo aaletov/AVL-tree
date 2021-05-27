@@ -9,7 +9,7 @@ int main()
 	Dictionary dict;
 	long long unsigned counter = 0;
 	std::ifstream fs;
-	fs.open("..\\tolstoi.txt");
+	fs.open("..\\text.txt");
 	if (!fs.is_open())
 	{
 		return -2;
@@ -42,12 +42,19 @@ int main()
 	}
 	fs.close();
 	std::cout << "End of file\n";
-	Dictionary::value_type max1 = dict.getMaxByValue();
-	std::cout << "Max " << std::get< 0 >(max1) << ' ' << std::get< 1 >(max1) << '\n';
-	Dictionary::value_type predecessor = max1;
+	Dictionary copyDict(dict);
+	Dictionary::value_type max = copyDict.getMaxByValue();
+	std::cout << "Max " << std::get< 0 >(max) << " \"" << std::get< 1 >(max) << "\"\n";
+	copyDict.deleteKey(std::get< 0 >(max));
 	for (int i = 2; i < 101; i++)
 	{
-		predecessor = dict.getPredecessorByValue(std::get< 0 >(predecessor));
-		std::cout << i << " place is word \"" << std::get< 0 >(predecessor) << "\" " << std::get< 1 >(predecessor) << " occurances\n";
+		max = copyDict.getMaxByValue();
+		if (max == Dictionary::npos)
+		{
+			std::cout << "No more words" << '\n';
+			break;
+		}
+		std::cout << i << " place is word \"" << std::get< 0 >(max) << "\" " << std::get< 1 >(max) << " occurances\n";
+		copyDict.deleteKey(std::get< 0 >(max));
 	}
 }

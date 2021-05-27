@@ -51,7 +51,9 @@ AVL_tree< Key, T, comparator >::AVL_tree() :
 {}
 
 template < class Key, class T, bool (*comparator)(Key, Key)  >
-AVL_tree< Key, T, comparator >::AVL_tree(const AVL_tree< Key, T, comparator >& tree)
+AVL_tree< Key, T, comparator >::AVL_tree(const AVL_tree< Key, T, comparator >& tree):
+	comparator_(comparator),
+	root_(nullptr)
 {
 	auto inserter = [this](node::node_t< Key, T >* p) mutable
 	{

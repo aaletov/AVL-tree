@@ -1,7 +1,9 @@
 #include "functions.hpp"
 #include <vector>
+#include <cctype>
 #include <algorithm>
-#include <iostream> //
+#include <locale>
+#include <functional>
 
 bool dictComparator(std::string lword, std::string rword)
 {
@@ -10,23 +12,32 @@ bool dictComparator(std::string lword, std::string rword)
 
 void formatWord(std::string& word)
 {
-	const std::vector< std::string > PUNCT{ ":", "-", ".", ",", ";", "(", ")", "\'", "\"" };
+	const std::vector< std::string > PUNCT{ ":", ".", ",", ";", "(", ")", "\'", "\"" };
 	auto eraser = [&word](const std::string& punct) mutable
 	{
 		size_t pos = word.find(punct);
-		if (pos != std::string::npos)
+		if (pos == 0 || pos == (word.size() - 1))
 		{
 			word.erase(pos, 1);
 		}
 	};
+	std::locale loc("Russian");
+	auto myLower = [loc](char& c) mutable
+	{
+		c = std::tolower(c, loc);
+	};
 	std::for_each(PUNCT.begin(), PUNCT.end(), eraser);
+	std::for_each(word.begin(), word.end(), myLower);
 }
 
 bool filterWord(const std::string& word)
 {
-	if (word.size() < 100000)
+	const std::vector< char > INNER{ '`', '-' };
+	std::locale loc("Russian");
+	auto myAlpha = [loc, INNER](char c)
 	{
-		return true;
-	}
-	return false;
+		bool isInner = std::find(INNER.begin(), INNER.end(), c) != INNER.end();
+		return std::isalpha(c, loc) || isInner;
+	};
+	return std::all_of(word.begin(), word.end(), myAlpha);
 }

@@ -1,4 +1,7 @@
 #include "dictionary.hpp"
+#include <climits>
+
+const Dictionary::value_type Dictionary::npos = std::pair< std::string, int >("", 0);
 
 bool Dictionary::insert(std::pair< std::string, int > pair)
 {
@@ -28,7 +31,7 @@ bool Dictionary::incrKey(std::string key)
 
 Dictionary::value_type Dictionary::getMaxByValue()
 {
-	Dictionary::value_type max{"", 0};
+	Dictionary::value_type max = Dictionary::npos;
 	auto maxFinder = [&max](node::node_t< std::string, int >* p) mutable
 	{
 		if (std::get< 1 >(p->pair_) > std::get< 1 >(max))
@@ -41,18 +44,21 @@ Dictionary::value_type Dictionary::getMaxByValue()
 	return max;
 }
 
-Dictionary::value_type Dictionary::getPredecessorByValue(std::string key)
+Dictionary::value_type Dictionary::getMinByValue()
 {
-	Dictionary::value_type keyPair = tree_.getPairByKey(key);
-	Dictionary::value_type predecessor{ "", 0 };
-	auto predecessorFinder = [keyPair, &predecessor](node::node_t< std::string, int >* p) mutable
+	Dictionary::value_type min{ "", INT_MAX };
+	auto minFinder = [&min](node::node_t< std::string, int >* p) mutable
 	{
-		if (std::get< 1 >(p->pair_) < std::get< 1 >(keyPair) && std::get< 1 >(p->pair_) > std::get< 1 >(predecessor))
+		if (std::get< 1 >(p->pair_) < std::get< 1 >(min))
 		{
-			predecessor = p->pair_;
+			min = p->pair_;
 		}
 		return true;
 	};
-	tree_.inorderRecursiveTraversal(predecessorFinder);
-	return predecessor;
+	tree_.inorderRecursiveTraversal(minFinder);
+	if (std::get< 1 >(min) == INT_MAX)
+	{
+		min = Dictionary::npos;
+	}
+	return min;
 }

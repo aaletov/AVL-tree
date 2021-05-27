@@ -127,23 +127,25 @@ BOOST_AUTO_TEST_CASE(test_format)
 	std::vector< std::string > toFormat
 	{
 		"word:",
-		"word-",
+		"word",
 		"word.",
 		"word,",
 		"word;",
+		"Word;",
+		"wOrd;",
+		"worD;",
 		"word(",
 		"word)",
 		"word\'",
 		"word\"",
 		":word",
-		"-word",
+		"word",
 		".word",
 		",word",
 		";word",
 		"(word",
 		")word",
 		"\'word",
-		"wo\'rd",
 		"\"word"
 	};
 	bool res = true;
@@ -154,6 +156,25 @@ BOOST_AUTO_TEST_CASE(test_format)
 	};
 	std::for_each(toFormat.begin(), toFormat.end(), tester);
 	BOOST_REQUIRE(res);
+}
+
+BOOST_AUTO_TEST_CASE(test_filter)
+{
+	std::vector< std::string > wrong
+	{
+		"foejfioj3",
+		"DWOI5J5OiO",
+		"a^fefe&&&"
+	};
+	std::vector< std::string > correct
+	{
+		"Awooo`",
+		"wo`wowoo",
+		"re-eeee",
+		"qwiodj"
+	};
+	BOOST_REQUIRE(!std::any_of(wrong.begin(), wrong.end(), filterWord));
+	BOOST_REQUIRE(std::all_of(correct.begin(), correct.end(), filterWord));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

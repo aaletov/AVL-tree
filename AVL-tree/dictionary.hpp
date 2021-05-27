@@ -12,13 +12,14 @@ public:
 	using mapped_type = int;
 	using value_type = std::pair< std::string, int >;
 	using tree_type = AVL_tree< std::string, int, dictComparator >;
+	static const value_type npos;
 	Dictionary() = default;
 	bool insert(std::pair< std::string, int > pair);
 	bool search(std::string key);
 	bool deleteKey(std::string key);
 	bool incrKey(std::string key);
 	value_type getMaxByValue();
-	value_type getPredecessorByValue(std::string key);
+	value_type getMinByValue();
 private:
 	tree_type tree_;
 };

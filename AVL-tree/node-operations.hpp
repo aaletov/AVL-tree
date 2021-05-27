@@ -260,13 +260,15 @@ void node::deleteNode(node::node_t< Key, T >*& p, Compare comparator)
 	}
 	else if (left == nullptr && right != nullptr)
 	{
+		node::node_t< Key, T >* tempRight = right;
 		delete p;
-		p = right;
+		p = tempRight;
 	}
 	else if (left != nullptr && right == nullptr)
 	{
+		node::node_t< Key, T >* tempLeft = left;
 		delete p;
-		p = left;
+		p = tempLeft;
 	}
 	else
 	{
