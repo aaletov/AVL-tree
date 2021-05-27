@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(test_double_delete)
 		intTree.insertPair(pair);
 	}
 	intTree.deleteKey(std::get< 0 >(vals[3]));
-	intTree.deleteKey(std::get< 0 >(vals[3]));
+	BOOST_REQUIRE_NO_THROW(intTree.deleteKey(std::get< 0 >(vals[3])));
 }
 
 BOOST_AUTO_TEST_CASE(test_delete)
@@ -121,10 +121,6 @@ BOOST_AUTO_TEST_CASE(test_delete)
 	}
 	BOOST_REQUIRE(res);
 }
-
-BOOST_AUTO_TEST_SUITE_END()
-
-BOOST_AUTO_TEST_SUITE(test_word_oper)
 
 BOOST_AUTO_TEST_CASE(test_format)
 {
