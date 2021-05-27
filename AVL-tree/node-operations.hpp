@@ -315,7 +315,7 @@ void node::balance(node::node_t< Key, T >*& p)
 		}
 		return;
 	}
-	// case 1, 2
+	// case 1, 2 
 	b = p->right_;
 	if (getHeight(b) - getHeight(p->left_) == 2)
 	{
