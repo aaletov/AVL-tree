@@ -407,7 +407,7 @@ void node::doRLrotation(node::node_t< Key, T >*& p)
 template < class Key, class T >
 Key node::getKey(node::node_t< Key, T >* p)
 {
-	return std::get<0>(p->pair_);
+	return std::get< 0 >(p->pair_);
 }
 
 #endif

@@ -32,7 +32,6 @@ void printInt(AVL_tree< int, int, intComparator >& tree, std::ostream& out, int 
     int leftSpace;
     int rightSpace;
     //int level = 0;
-    int currCellsCount = 1;
     int currDequeSize;
     std::deque<node::node_t< int, int >*> deque;
 

@@ -1,46 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree", "AVL-tree\AVL-tree.vcxproj", "{0964C57D-1A5A-46AB-9305-7B2821F8BC19}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree-test", "AVL-tree-test\AVL-tree-test.vcxproj", "{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50893D37-D933-46B1-B1F5-36C6AC76383C}"
-	ProjectSection(SolutionItems) = preProject
-		tolstoi.txt = tolstoi.txt
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AVL-tree", "AVL-tree\AVL-tree.vcxproj", "{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Boost|x64 = Debug Boost|x64
+		Debug Boost|x86 = Debug Boost|x86
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Debug|x64.ActiveCfg = Debug|x64
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Debug|x64.Build.0 = Debug|x64
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Debug|x86.ActiveCfg = Debug|Win32
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Debug|x86.Build.0 = Debug|Win32
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x64.ActiveCfg = Release|x64
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x64.Build.0 = Release|x64
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x86.ActiveCfg = Release|Win32
-		{0964C57D-1A5A-46AB-9305-7B2821F8BC19}.Release|x86.Build.0 = Release|Win32
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x64.ActiveCfg = Debug|x64
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x64.Build.0 = Debug|x64
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x86.ActiveCfg = Debug|Win32
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Debug|x86.Build.0 = Debug|Win32
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x64.ActiveCfg = Release|x64
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x64.Build.0 = Release|x64
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x86.ActiveCfg = Release|Win32
-		{A0B8F194-4AD0-45ED-B3B3-D99B7AB40B6D}.Release|x86.Build.0 = Release|Win32
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug Boost|x64.ActiveCfg = Debug Boost|x64
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug Boost|x64.Build.0 = Debug Boost|x64
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug Boost|x86.ActiveCfg = Debug Boost|Win32
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug Boost|x86.Build.0 = Debug Boost|Win32
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug|x64.ActiveCfg = Debug|x64
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug|x64.Build.0 = Debug|x64
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug|x86.ActiveCfg = Debug|Win32
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Debug|x86.Build.0 = Debug|Win32
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Release|x64.ActiveCfg = Release|x64
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Release|x64.Build.0 = Release|x64
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Release|x86.ActiveCfg = Release|Win32
+		{E3B9C0C7-1F02-4D35-8E36-8E3AE3E7BD64}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {48E2EE3A-1EA9-44E7-BC37-0C6A15C129CD}
+		SolutionGuid = {3EE886CC-0B51-4B30-8808-8A08BD3D22AE}
 	EndGlobalSection
 EndGlobal

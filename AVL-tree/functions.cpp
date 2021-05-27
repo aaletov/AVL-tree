@@ -24,5 +24,9 @@ void formatWord(std::string& word)
 
 bool filterWord(const std::string& word)
 {
-	return true;
+	if (word.size() < 100000)
+	{
+		return true;
+	}
+	return false;
 }
