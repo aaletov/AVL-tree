@@ -13,12 +13,16 @@ public:
 	void doRead(const std::string& fileName);
 	void doSearch(const std::string& word);
 	void doPrint(const std::string& count);
+	void doAdd(const std::string& word);
+	void doDelete(const std::string& word);
 private:
 	const std::map< std::string, void(Interface::*)(const std::string&) > commands_
 	{
 		{"read", &Interface::doRead},
 		{"search", &Interface::doSearch},
 		{"print", &Interface::doPrint},
+		{"add", &Interface::doAdd},
+		{"delete", &Interface::doDelete},
 	};
 	Dictionary& dict_;
 	std::istream& in_;

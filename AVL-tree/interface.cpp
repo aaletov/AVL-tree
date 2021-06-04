@@ -14,6 +14,8 @@ void Interface::start()
 		<< "read [filename] - read file and add it to dictionary" << '\n'
 		<< "search [word] - search word in dictionary and print number of occurrences" << '\n'
 		<< "print [count] - print count of most frequent words" << '\n'
+		<< "add [word] - add word to dictionary" << '\n'
+		<< "delete [word] - delete word from dictionary" << '\n'
 		<< "quit - closes interface" << '\n';
 	std::string command;
 	std::string param;
@@ -29,6 +31,11 @@ void Interface::start()
 		if (in_.fail() || in_.eof())
 		{
 			break;
+		}
+		if (dict_.getMaxByValue() == Dictionary::npos && command != "read" && command != "add")
+		{
+			out_ << "Dictionary is empty" << '\n';
+			continue;
 		}
 		try
 		{
@@ -84,7 +91,7 @@ void Interface::doRead(const std::string& fileName)
 		}
 	}
 	fs.close();
-	out_ << "End of file\n";
+	out_ << "File was successfully read\n";
 }
 
 void Interface::doSearch(const std::string& word)
@@ -98,7 +105,7 @@ void Interface::doSearch(const std::string& word)
 	std::for_each(lower.begin(), lower.end(), myLower);
 	if (!dict_.search(word))
 	{
-		out_ << "No such key" << '\n';
+		out_ << "No such word in dictionary" << '\n';
 		return;
 	}
 	out_ << word << ' ' << dict_.at(word) << '\n';
@@ -127,7 +134,39 @@ void Interface::doPrint(const std::string& count)
 			std::cout << "No more words" << '\n';
 			break;
 		}
-		std::cout << i << " place is word \"" << std::get< 0 >(max) << "\" " << std::get< 1 >(max) << " occurances\n";
+		std::cout << i << " place is word \"" << std::get< 0 >(max) << "\" " << std::get< 1 >(max) << " occurrences\n";
 		copyDict.deleteKey(std::get< 0 >(max));
 	}
+}
+
+void Interface::doAdd(const std::string& word)
+{
+	if (!filterWord(word))
+	{
+		out_ << "Incorrect word format" << '\n';
+		return;
+	}
+	if (dict_.search(word))
+	{
+		dict_.incrKey(word);
+	}
+	else
+	{
+		dict_.insert({ word, 1 });
+	}
+}
+
+void Interface::doDelete(const std::string& word)
+{
+	if (!filterWord(word))
+	{
+		out_ << "Incorrect word format" << '\n';
+		return;
+	}
+	if (!dict_.search(word))
+	{
+		out_ << "No such word in dictionary" << '\n';
+		return;
+	}
+	dict_.deleteKey(word);
 }
