@@ -160,6 +160,7 @@
     <ClInclude Include="dictionary.hpp" />
     <ClInclude Include="functions.hpp" />
     <ClInclude Include="int-comp.hpp" />
+    <ClInclude Include="interface.hpp" />
     <ClInclude Include="node-operations.hpp" />
     <ClInclude Include="node.hpp" />
     <ClInclude Include="print-int.hpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="dictionary.cpp" />
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="int-comp.cpp" />
+    <ClCompile Include="interface.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </ExcludedFromBuild>

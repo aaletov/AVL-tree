@@ -13,6 +13,11 @@ bool Dictionary::search(std::string key)
 	return tree_.recursiveSearchKey(key);
 }
 
+int Dictionary::at(std::string key)
+{
+	return std::get< 1 >(tree_.getPairByKey(key));
+}
+
 bool Dictionary::deleteKey(std::string key)
 {
 	return tree_.deleteKey(key);

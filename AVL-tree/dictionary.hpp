@@ -16,6 +16,7 @@ public:
 	Dictionary() = default;
 	bool insert(std::pair< std::string, int > pair);
 	bool search(std::string key);
+	int at(std::string key);
 	bool deleteKey(std::string key);
 	bool incrKey(std::string key);
 	value_type getMaxByValue();
