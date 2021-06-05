@@ -1,8 +1,7 @@
 #include "functions.hpp"
 #include <vector>
-#include <cctype>
-#include <algorithm>
 #include <locale>
+#include <algorithm>
 #include <functional>
 
 bool dictComparator(std::string lword, std::string rword)
@@ -16,13 +15,13 @@ void formatWord(std::string& word)
 	auto eraser = [&word](const std::string& punct) mutable
 	{
 		size_t pos = word.find(punct);
-		if (pos == 0 || pos == (word.size() - 1))
+		if ((pos == 0) || ((word.size() != 0) && (pos == (word.size() - 1))))
 		{
 			word.erase(pos, 1);
 		}
 	};
-	std::locale loc("Russian");
-	auto myLower = [loc](char& c) mutable
+	std::locale loc;
+	auto myLower = [&loc](char& c) mutable
 	{
 		c = std::tolower(c, loc);
 	};
@@ -33,8 +32,8 @@ void formatWord(std::string& word)
 bool filterWord(const std::string& word)
 {
 	const std::vector< char > INNER{ '`', '-' };
-	std::locale loc("Russian");
-	auto myAlpha = [loc, INNER](char c)
+	std::locale loc;
+	auto myAlpha = [&loc, INNER](char c)
 	{
 		bool isInner = std::find(INNER.begin(), INNER.end(), c) != INNER.end();
 		return std::isalpha(c, loc) || isInner;

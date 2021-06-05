@@ -39,11 +39,19 @@ void Interface::start()
 		}
 		try
 		{
-			(this->*commands_.at(command))(param);
+			void(Interface::*fcnPtr)(const std::string&) = this->commands_.at(command);
+			(this->*fcnPtr)(param);
 		}
 		catch (const std::out_of_range& exc)
 		{
+			std::cerr << exc.what() << '\n';
+			out_ << "out of range was caught\n";
 			out_ << "Incorrect command" << '\n';
+		}
+		catch (const std::exception& exc)
+		{
+			std::cerr << exc.what() << '\n';
+			out_ << "std::exception was caught\n";
 		}
 	}
 	out_ << "Interface was closed" << '\n';
@@ -96,19 +104,14 @@ void Interface::doRead(const std::string& fileName)
 
 void Interface::doSearch(const std::string& word)
 {
-	std::locale loc("Russian");
-	auto myLower = [loc](char& c) mutable
-	{
-		c = std::tolower(c, loc);
-	};
-	std::string lower(word);
-	std::for_each(lower.begin(), lower.end(), myLower);
-	if (!dict_.search(word))
+	std::string copyWord(word);
+	formatWord(copyWord);
+	if (!dict_.search(copyWord))
 	{
 		out_ << "No such word in dictionary" << '\n';
 		return;
 	}
-	out_ << word << ' ' << dict_.at(word) << '\n';
+	out_ << word << ' ' << dict_.at(copyWord) << '\n';
 }
 
 void Interface::doPrint(const std::string& count)
@@ -141,32 +144,36 @@ void Interface::doPrint(const std::string& count)
 
 void Interface::doAdd(const std::string& word)
 {
-	if (!filterWord(word))
+	std::string copyWord(word);
+	formatWord(copyWord);
+	if (!filterWord(copyWord))
 	{
 		out_ << "Incorrect word format" << '\n';
 		return;
 	}
-	if (dict_.search(word))
+	if (dict_.search(copyWord))
 	{
-		dict_.incrKey(word);
+		dict_.incrKey(copyWord);
 	}
 	else
 	{
-		dict_.insert({ word, 1 });
+		dict_.insert({ copyWord, 1 });
 	}
 }
 
 void Interface::doDelete(const std::string& word)
 {
-	if (!filterWord(word))
+	std::string copyWord(word);
+	formatWord(copyWord);
+	if (!filterWord(copyWord))
 	{
 		out_ << "Incorrect word format" << '\n';
 		return;
 	}
-	if (!dict_.search(word))
+	if (!dict_.search(copyWord))
 	{
 		out_ << "No such word in dictionary" << '\n';
 		return;
 	}
-	dict_.deleteKey(word);
+	dict_.deleteKey(copyWord);
 }

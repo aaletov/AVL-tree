@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_CASE(test_delete)
 		size_t toDelete = size + 1;
 		while (toDelete >= size)
 		{
-			toDelete = generator();
+			toDelete = generator() / 10000;
 		}
 		intTree.deleteKey(std::get< 0 >(vals[toDelete]));
 		res &= testSort(intTree);

@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <Windows.h>
 #include "interface.hpp"
 
 int main()
 {
-	setlocale(LC_ALL, "Russian");
+	std::locale::global(std::locale("Russian"));
+
 	try
 	{
 		Dictionary dict;
@@ -13,8 +15,8 @@ int main()
 	}
 	catch (const std::exception& exc)
 	{
-		std::cerr << exc.what();
-		return -2;
+		std::cerr << exc.what() << '\n';
+		return 1;
 	}
 	return 0;
 }
