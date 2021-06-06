@@ -6,7 +6,9 @@
 int main()
 {
 	std::locale::global(std::locale("Russian"));
-
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	
 	try
 	{
 		Dictionary dict;
