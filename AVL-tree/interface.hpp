@@ -1,4 +1,4 @@
-#ifndef INTERFACE_HPP
+﻿#ifndef INTERFACE_HPP
 #define INTERFACE_HPP
 
 #include <map>

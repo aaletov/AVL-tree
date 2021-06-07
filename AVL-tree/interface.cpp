@@ -1,4 +1,4 @@
-#include "interface.hpp"
+﻿#include "interface.hpp"
 #include <fstream>
 #include <locale>
 

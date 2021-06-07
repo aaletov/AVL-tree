@@ -1,4 +1,4 @@
-#ifndef TEST_FUNCTIONS_HPP
+﻿#ifndef TEST_FUNCTIONS_HPP
 #define TEST_FUNCTIONS_HPP
 
 #include <functional>

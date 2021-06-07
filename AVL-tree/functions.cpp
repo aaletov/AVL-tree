@@ -1,4 +1,4 @@
-#include "functions.hpp"
+﻿#include "functions.hpp"
 #include <vector>
 #include <locale>
 #include <algorithm>

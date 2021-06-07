@@ -1,4 +1,4 @@
-#ifndef NODE_OPERATIONS_HPP
+п»ї#ifndef NODE_OPERATIONS_HPP
 #define NODE_OPERATIONS_HPP
 
 #include <cmath>
@@ -32,16 +32,16 @@ namespace node
 	void balance(node_t< Key, T >*& p);
 	template < class Key, class T >
 	int getHeight(node_t< Key, T >* p);
-	// Малое левое вращение
+	// РњР°Р»РѕРµ Р»РµРІРѕРµ РІСЂР°С‰РµРЅРёРµ
 	template < class Key, class T >
 	void doRRrotation(node_t< Key, T >*& p);
-	// Малое правое вращение
+	// РњР°Р»РѕРµ РїСЂР°РІРѕРµ РІСЂР°С‰РµРЅРёРµ
 	template < class Key, class T >
 	void doLLrotation(node_t< Key, T >*& p);
-	// Большое правое вращение
+	// Р‘РѕР»СЊС€РѕРµ РїСЂР°РІРѕРµ РІСЂР°С‰РµРЅРёРµ
 	template < class Key, class T >
 	void doLRrotation(node_t< Key, T >*& p);
-	// Большое левое вращение
+	// Р‘РѕР»СЊС€РѕРµ Р»РµРІРѕРµ РІСЂР°С‰РµРЅРёРµ
 	template < class Key, class T >
 	void doRLrotation(node_t< Key, T >*& p);
 	template < class Key, class T >
@@ -164,7 +164,7 @@ template < class Key, class T, class Compare >
 bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, std::pair< Key, T > pair, Compare comparator)
 {
 	bool res = false;
-	// Проход по пути поиска
+	// РџСЂРѕС…РѕРґ РїРѕ РїСѓС‚Рё РїРѕРёСЃРєР°
 	if (p != nullptr)
 	{
 		if (std::get< 0 >(pair) == getKey(p))
@@ -182,7 +182,7 @@ bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, 
 	}
 	else
 	{
-		// Вставка
+		// Р’СЃС‚Р°РІРєР°
 		node::node_t< Key, T >* parent = iterativeSearchParent(root, std::get< 0 >(pair), comparator);
 		if (comparator(std::get< 0 >(pair), getKey(parent)))
 		{
@@ -194,7 +194,7 @@ bool node::insertPair(node::node_t< Key, T >* root, node::node_t< Key, T >*& p, 
 		}
 		return true;
 	}
-	// Возврат
+	// Р’РѕР·РІСЂР°С‚
 	balance(p);
 	return res;
 }
@@ -203,7 +203,7 @@ template < class Key, class T, class Compare >
 bool node::deleteKey(node::node_t< Key, T >*& p, Key key, Compare comparator)
 {
 	bool res = false;
-	// Проход по пути поиска
+	// РџСЂРѕС…РѕРґ РїРѕ РїСѓС‚Рё РїРѕРёСЃРєР°
 	if (getKey(p) == key)
 	{
 		deleteNode(p, comparator);
@@ -211,7 +211,7 @@ bool node::deleteKey(node::node_t< Key, T >*& p, Key key, Compare comparator)
 	}
 	else if (p != nullptr)
 	{
-		// Удаление
+		// РЈРґР°Р»РµРЅРёРµ
 		if (p->right_ != nullptr)
 		{
 			if (key == getKey(p->right_))
@@ -242,7 +242,7 @@ bool node::deleteKey(node::node_t< Key, T >*& p, Key key, Compare comparator)
 	{
 		return false;
 	}
-	// Возврат
+	// Р’РѕР·РІСЂР°С‚
 	balance(p);
 	return res;
 }
@@ -350,7 +350,7 @@ int node::getHeight(node::node_t< Key, T >* p)
 	return (left > right) ? left : right;
 }
 
-// Малое левое вращение
+// РњР°Р»РѕРµ Р»РµРІРѕРµ РІСЂР°С‰РµРЅРёРµ
 template < class Key, class T >
 void node::doRRrotation(node::node_t< Key, T >*& p)
 {
@@ -362,7 +362,7 @@ void node::doRRrotation(node::node_t< Key, T >*& p)
 	p = p1; //
 }
 
-// Малое правое вращение
+// РњР°Р»РѕРµ РїСЂР°РІРѕРµ РІСЂР°С‰РµРЅРёРµ
 template < class Key, class T >
 void node::doLLrotation(node::node_t< Key, T >*& p)
 {
@@ -374,7 +374,7 @@ void node::doLLrotation(node::node_t< Key, T >*& p)
 	p = p1; //
 }
 
-// Большое правое вращение
+// Р‘РѕР»СЊС€РѕРµ РїСЂР°РІРѕРµ РІСЂР°С‰РµРЅРёРµ
 template < class Key, class T >
 void node::doLRrotation(node::node_t< Key, T >*& p)
 {
@@ -390,7 +390,7 @@ void node::doLRrotation(node::node_t< Key, T >*& p)
 	p = p2; //
 }
 
-// Большое левое вращение
+// Р‘РѕР»СЊС€РѕРµ Р»РµРІРѕРµ РІСЂР°С‰РµРЅРёРµ
 template < class Key, class T >
 void node::doRLrotation(node::node_t< Key, T >*& p)
 {

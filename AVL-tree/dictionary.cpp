@@ -1,4 +1,4 @@
-#include "dictionary.hpp"
+﻿#include "dictionary.hpp"
 #include <climits>
 
 const Dictionary::value_type Dictionary::npos = std::pair< std::string, int >("", 0);

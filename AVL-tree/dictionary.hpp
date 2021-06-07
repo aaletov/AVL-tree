@@ -1,4 +1,4 @@
-#ifndef DICTIONARY_HPP
+﻿#ifndef DICTIONARY_HPP
 #define DICTIONARY_HPP
 
 #include <functional>

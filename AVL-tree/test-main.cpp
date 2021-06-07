@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE AVL_TREE
+п»ї#define BOOST_TEST_MODULE AVL_TREE
 #include <set>
 #include <sstream>
 #include <iterator>
@@ -195,10 +195,10 @@ BOOST_AUTO_TEST_CASE(test_interface)
 		"search poz",
 		"delete poz",
 		"print 1",
-		"add поз",
+		"add РїРѕР·",
 		"print 1",
-		"search поз",
-		"delete поз",
+		"search РїРѕР·",
+		"delete РїРѕР·",
 		"print 1",
 		"read text.txt",
 		"print 5",
@@ -206,10 +206,10 @@ BOOST_AUTO_TEST_CASE(test_interface)
 		"read aboba.txt",
 		"print 5",
 		"search I",
-		"search абоба",
-		"add абоба",
+		"search Р°Р±РѕР±Р°",
+		"add Р°Р±РѕР±Р°",
 		"print 1",
-		"delete абоба",
+		"delete Р°Р±РѕР±Р°",
 		"print 1",
 		"quit"
 	};

@@ -1,4 +1,4 @@
-#ifndef FUNCTIONS_HPP
+﻿#ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
 
 #include <deque>

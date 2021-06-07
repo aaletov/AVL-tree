@@ -1,4 +1,4 @@
-#ifndef NODE_HPP
+п»ї#ifndef NODE_HPP
 #define NODE_HPP
 
 #include <algorithm>
@@ -10,7 +10,7 @@ namespace node
 	{
 		node_t* left_;
 		node_t* right_;
-		// Высота правого - высота левого
+		// Р’С‹СЃРѕС‚Р° РїСЂР°РІРѕРіРѕ - РІС‹СЃРѕС‚Р° Р»РµРІРѕРіРѕ
 		std::pair< Key, T > pair_;
 	};
 }
