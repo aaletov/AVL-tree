@@ -121,6 +121,11 @@ void Interface::doPrint(const std::string& count)
 	if (std::all_of(count.begin(), count.end(), isdigit))
 	{
 		intCount = std::stoi(count);
+		if (intCount == 0)
+		{
+			out_ << "Count cannot be 0" << '\n';
+			return;
+		}
 	}
 	else
 	{
