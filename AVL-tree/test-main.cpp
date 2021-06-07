@@ -1,7 +1,11 @@
 #define BOOST_TEST_MODULE AVL_TREE
 #include <set>
+#include <sstream>
+#include <iterator>
+#include <algorithm>
 #include <boost/test/included/unit_test.hpp>
 #include "functions.hpp"
+#include "interface.hpp"
 #include "test-functions.hpp"
 
 
@@ -175,6 +179,44 @@ BOOST_AUTO_TEST_CASE(test_filter)
 	};
 	BOOST_REQUIRE(!std::any_of(wrong.begin(), wrong.end(), filterWord));
 	BOOST_REQUIRE(std::all_of(correct.begin(), correct.end(), filterWord));
+}
+
+BOOST_AUTO_TEST_CASE(test_interface)
+{
+	std::locale::global(std::locale("Russian"));
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	std::cout << "Testing interface\n";
+	std::stringstream ss;
+	std::vector< std::string > commands
+	{
+		"add poz",
+		"print 1",
+		"search poz",
+		"delete poz",
+		"print 1",
+		"add поз",
+		"print 1",
+		"search поз",
+		"delete поз",
+		"print 1",
+		"read text.txt",
+		"print 5",
+		"search I",
+		"read aboba.txt",
+		"print 5",
+		"search I",
+		"search абоба",
+		"add абоба",
+		"print 1",
+		"delete абоба",
+		"print 1",
+		"quit"
+	};
+	std::copy(commands.begin(), commands.end(), std::ostream_iterator<std::string>(ss, "\n"));
+	Dictionary dict;
+	Interface inter(dict, ss, std::cout);
+	BOOST_REQUIRE_NO_THROW(inter.start());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
