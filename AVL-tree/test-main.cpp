@@ -203,13 +203,13 @@ BOOST_AUTO_TEST_CASE(test_interface)
 		"read text.txt",
 		"print 5",
 		"search I",
-		"read aboba.txt",
+		"read text_2.txt",
 		"print 5",
 		"search I",
-		"search абоба",
-		"add абоба",
+		"search текст",
+		"add текст",
 		"print 1",
-		"delete абоба",
+		"delete текст",
 		"print 1",
 		"quit"
 	};
